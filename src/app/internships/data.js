@@ -1,0 +1,121 @@
+export const internships = [
+    {
+      id: 1,
+      title: 'Full Stack Development Internship - MERN Stack',
+      company: 'TechCorp Solutions',
+      category: ['software','Popular Internships'],
+      description: 'Join our dynamic team and work on cutting-edge web applications using the MERN stack.',
+      skills: ['React', 'Node.js', 'MongoDB', 'Express.js'],
+      applicants: '15.2k+',
+      duration: '6 months',
+      stipend: '₹15,000',
+      image: '/CradImage.png',
+      workType: 'Work from Home'
+    },
+    {
+        id: 2,
+        title: 'Data Analytics & Business Intelligence',
+        company: 'Analytics Pro',
+        category: ['data','Popular Internships'],
+        description: 'Help transform raw data into actionable insights for business decisions.',
+        skills: ['Python', 'SQL', 'Power BI', 'Excel'],
+        applicants: '12.8k+',
+        duration: '4 months',
+        stipend: '₹12,000',
+        image: '/Images.jpg',
+        workType: 'Work from Home'
+      },
+      {
+        id: 3,
+        title: 'Digital Marketing Specialist',
+        company: 'Growth Marketing Inc',
+        category: ['marketing', 'Popular Internships'],
+        description: 'Drive brand engagement through innovative digital marketing strategies.',
+        skills: ['Social Media', 'SEO', 'Content Marketing', 'Analytics'],
+        applicants: '10.5k+',
+        duration: '3 months',
+        stipend: '₹10,000',
+        image: '/Images.jpg',
+        workType: 'Work from Office'
+      },
+      {
+        id: 4,
+        title: 'UI/UX Design for Mobile Applications',
+        company: 'Design Studio X',
+        category: ['design'],
+        description: 'Create intuitive and engaging mobile app interfaces.',
+        skills: ['Figma', 'Adobe XD', 'Prototyping', 'User Research'],
+        applicants: '8.7k+',
+        duration: '4 months',
+        stipend: '₹12,000',
+        image: '/Images.jpg',
+        workType: 'Hybrid'
+      },
+      {
+        id: 5,
+        title: 'Business Development Executive',
+        company: 'Growth Ventures',
+        category: 'business',
+        description: 'Develop business strategies and expand market presence.',
+        skills: ['Sales', 'Negotiation', 'Client Relations', 'Market Research'],
+        applicants: '9.3k+',
+        duration: '6 months',
+        stipend: '₹18,000',
+        image: '/Images.jpg',
+        workType: 'Work from Office'
+      },
+      {
+        id: 6,
+        title: 'Financial Analyst Intern',
+        company: 'Finance Solutions Ltd',
+        category: 'finance',
+        description: 'Analyze financial data and prepare reports for decision-making.',
+        skills: ['Financial Modeling', 'Valuation', 'Excel', 'Research'],
+        applicants: '7.8k+',
+        duration: '6 months',
+        stipend: '₹20,000',
+        image: '/Images.jpg',
+        workType: 'Hybrid'
+      },
+      {
+        id: 7,
+        title: 'HR Management & Recruitment',
+        company: 'HR Solutions Pro',
+        category: 'hr',
+        description: 'Support HR operations and talent acquisition processes.',
+        skills: ['Recruitment', 'Employee Relations', 'HR Operations', 'Documentation'],
+        applicants: '6.5k+',
+        duration: '6 months',
+        stipend: '₹10,000',
+        image: '/Images.jpg',
+        workType: 'Work from Office'
+      },
+      {
+        id: 8,
+        title: 'Backend Developer - Python/Django',
+        company: 'WebTech Solutions',
+        category: ['software','Popular Internships'],
+        description: 'Build robust backend systems using Python and Django.',
+        skills: ['Python', 'Django', 'PostgreSQL', 'REST APIs'],
+        applicants: '11.2k+',
+        duration: '5 months',
+        stipend: '₹14,000',
+        image: '/Images.jpg',
+        workType: 'Work from Home'
+      },
+      {
+        id: 9,
+        title: 'Data Science Intern',
+        company: 'DataMinds Corp',
+        category: 'data',
+        description: 'Apply machine learning to solve complex business problems.',
+        skills: ['Python', 'Machine Learning', 'Data Visualization', 'Statistics'],
+        applicants: '13.1k+',
+        duration: '6 months',
+        stipend: '₹16,000',
+        image: '/Images.jpg',
+        workType: 'Hybrid'
+      }
+    // ... rest of your internships array
+];
+export default internships;
