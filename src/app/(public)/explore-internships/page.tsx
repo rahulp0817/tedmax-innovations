@@ -1,10 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Users, Clock, MapPin, Wallet, ChevronRight } from "lucide-react";
+import {
+  Search,
+  Users,
+  Clock,
+  MapPin,
+  Wallet,
+  ChevronRight,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { internships } from "@/app/internships/data";
+import { internships } from "@/app/(public)/internships/data";
 
 const InternshipExplorer = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -20,7 +27,6 @@ const InternshipExplorer = () => {
       .replace(/[^a-z0-9]+/g, "-") // Convert to slug format
       .replace(/^-+|-+$/g, ""); // Remove extra hyphens
   };
-  
 
   // Handle Internship Click
   const handleInternshipClick = (internship) => {
@@ -30,25 +36,53 @@ const InternshipExplorer = () => {
   // Calculate category counts dynamically
   const getCategoryCounts = () => ({
     all: internships.length,
-    popular: internships.filter((internship) => internship.applicants?.includes("k+")).length,
-    software: internships.filter((internship) => internship.category === "software").length,
-    data: internships.filter((internship) => internship.category === "data").length,
-    business: internships.filter((internship) => internship.category === "business").length,
-    marketing: internships.filter((internship) => internship.category === "marketing").length,
-    design: internships.filter((internship) => internship.category === "design").length,
+    popular: internships.filter((internship) =>
+      internship.applicants?.includes("k+")
+    ).length,
+    software: internships.filter(
+      (internship) => internship.category === "software"
+    ).length,
+    data: internships.filter((internship) => internship.category === "data")
+      .length,
+    business: internships.filter(
+      (internship) => internship.category === "business"
+    ).length,
+    marketing: internships.filter(
+      (internship) => internship.category === "marketing"
+    ).length,
+    design: internships.filter((internship) => internship.category === "design")
+      .length,
     hr: internships.filter((internship) => internship.category === "hr").length,
-    finance: internships.filter((internship) => internship.category === "finance").length,
+    finance: internships.filter(
+      (internship) => internship.category === "finance"
+    ).length,
   });
 
   const categoryCounts = getCategoryCounts();
 
   const categories = [
     { id: "all", name: "All Internships", count: categoryCounts.all },
-    { id: "popular", name: "Popular Internships", count: categoryCounts.popular },
-    { id: "software", name: "Software Development", count: categoryCounts.software },
+    {
+      id: "popular",
+      name: "Popular Internships",
+      count: categoryCounts.popular,
+    },
+    {
+      id: "software",
+      name: "Software Development",
+      count: categoryCounts.software,
+    },
     { id: "data", name: "Data Analytics", count: categoryCounts.data },
-    { id: "business", name: "Business Development", count: categoryCounts.business },
-    { id: "marketing", name: "Digital Marketing", count: categoryCounts.marketing },
+    {
+      id: "business",
+      name: "Business Development",
+      count: categoryCounts.business,
+    },
+    {
+      id: "marketing",
+      name: "Digital Marketing",
+      count: categoryCounts.marketing,
+    },
     { id: "design", name: "UI/UX Design", count: categoryCounts.design },
     { id: "hr", name: "Human Resources", count: categoryCounts.hr },
     { id: "finance", name: "Finance", count: categoryCounts.finance },
@@ -57,7 +91,8 @@ const InternshipExplorer = () => {
   const displayedInternships = internships.filter((internship) => {
     const matchesCategory =
       selectedCategory === "all" ||
-      (selectedCategory === "popular" && internship.applicants.includes("k+")) ||
+      (selectedCategory === "popular" &&
+        internship.applicants.includes("k+")) ||
       internship.category === selectedCategory;
 
     const matchesSearch =
@@ -74,7 +109,10 @@ const InternshipExplorer = () => {
     <div className="max-w-7xl mx-auto p-6 mb-24 mt-16">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-6">
-        <Link href="/" className="text-gray-600 hover:text-red-600 transition-colors">
+        <Link
+          href="/"
+          className="text-gray-600 hover:text-red-600 transition-colors"
+        >
           Home
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -83,7 +121,9 @@ const InternshipExplorer = () => {
 
       {/* Header */}
       <div className="flex justify-between items-center mb-8 sticky top-0 bg-white z-10 py-4">
-        <h1 className="text-4xl font-bold text-red-600">Find Your Internship</h1>
+        <h1 className="text-4xl font-bold text-red-600">
+          Find Your Internship
+        </h1>
         <div className="relative">
           <input
             type="text"
@@ -115,7 +155,9 @@ const InternshipExplorer = () => {
                   }`}
                 >
                   <span>{category.name}</span>
-                  <span className="text-sm text-gray-500">({category.count})</span>
+                  <span className="text-sm text-gray-500">
+                    ({category.count})
+                  </span>
                 </motion.button>
               ))}
             </div>
@@ -124,7 +166,10 @@ const InternshipExplorer = () => {
 
         {/* Internship Grid */}
         <div className="flex-1">
-          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" layout>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            layout
+          >
             <AnimatePresence mode="popLayout">
               {displayedInternships.map((internship, index) => (
                 <motion.div
@@ -132,8 +177,16 @@ const InternshipExplorer = () => {
                   className="w-full bg-white rounded-xl overflow-hidden shadow cursor-pointer h-[400px]"
                   variants={{
                     hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.1 } },
-                    hover: { scale: 1.03, y: -8, transition: { duration: 0.3 } },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.5, delay: index * 0.1 },
+                    },
+                    hover: {
+                      scale: 1.03,
+                      y: -8,
+                      transition: { duration: 0.3 },
+                    },
                   }}
                   initial="hidden"
                   animate="visible"
@@ -143,7 +196,10 @@ const InternshipExplorer = () => {
                   layout
                   onClick={() => handleInternshipClick(internship)}
                 >
-                  <Link href={`/internships/${generateSlug(internship.title)}`} className="block h-full">
+                  <Link
+                    href={`/internships/${generateSlug(internship.title)}`}
+                    className="block h-full"
+                  >
                     <motion.div className="p-6 h-full flex flex-col">
                       {/* Company Logo and Info */}
                       <div className="flex items-start gap-4 mb-4">
@@ -161,25 +217,40 @@ const InternshipExplorer = () => {
                           <motion.h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2 h-14">
                             {internship.title}
                           </motion.h3>
-                          <p className="text-sm text-gray-600 truncate">{internship.company}</p>
+                          <p className="text-sm text-gray-600 truncate">
+                            {internship.company}
+                          </p>
                         </div>
                       </div>
 
                       {/* Description */}
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-2 h-10">{internship.description}</p>
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-2 h-10">
+                        {internship.description}
+                      </p>
 
                       {/* Details */}
                       <div className="space-y-3 mb-4 text-sm text-gray-600">
-                        <div className="flex items-center gap-2"><MapPin size={16} /> {internship.workType}</div>
-                        <div className="flex items-center gap-2"><Wallet size={16} /> {internship.stipend}</div>
-                        <div className="flex items-center gap-2"><Clock size={16} /> {internship.duration}</div>
-                        <div className="flex items-center gap-2"><Users size={16} /> {internship.applicants} applicants</div>
+                        <div className="flex items-center gap-2">
+                          <MapPin size={16} /> {internship.workType}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Wallet size={16} /> {internship.stipend}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Clock size={16} /> {internship.duration}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Users size={16} /> {internship.applicants} applicants
+                        </div>
                       </div>
 
                       {/* Tech Stacks */}
                       <div className="flex flex-wrap gap-2">
                         {internship.skills.map((skill, idx) => (
-                          <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                          <span
+                            key={idx}
+                            className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
+                          >
                             {skill}
                           </span>
                         ))}

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { MapPin, CalendarDays, Wallet, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { internships } from "@/app/internships/data"; // Import internships from data.js
+import { internships } from "@/app/(public)/internships/data";
 
 const InternshipSection = () => {
   const router = useRouter();
@@ -14,8 +14,8 @@ const InternshipSection = () => {
     return title
       .toLowerCase()
       .trim()
-      .replace(/[^a-z0-9]+/g, "-") 
-      .replace(/^-+|-+$/g, ""); 
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
   };
 
   const popularInternships = internships.filter(
@@ -47,7 +47,7 @@ const InternshipSection = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          Kickstart your career with {" "}
+          Kickstart your career with{" "}
           <span className="text-red-600">internships programs</span>
         </motion.h2>
       </motion.div>
@@ -92,14 +92,9 @@ const InternshipSection = () => {
                       />
                     </div>
                     <div>
-                      <motion.h3
-                        className="text-md font-semibold text-gray-900 mb-1 mt-2 line-clamp-2 h-12"
-                      >
+                      <motion.h3 className="text-md font-semibold text-gray-900 mb-1 mt-2 line-clamp-2 h-12">
                         {internship.title}
                       </motion.h3>
-                      <p className="text-sm text-gray-500">
-                        {internship.location}
-                      </p>
                     </div>
                   </div>
 
