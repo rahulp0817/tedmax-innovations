@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import { useParams } from 'next/navigation';
-import CourseDetails from '@/app/course-description/course-details';
-import courses from "@/app/courses/data"
+import CourseDetails from '@/app/(public)/course-description/course-details';
+import courses from "@/app/(public)/courses/data"
 function Page() {
   const params = useParams();
   const courseId = parseInt(params.courseId);

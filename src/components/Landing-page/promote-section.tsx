@@ -50,7 +50,7 @@ const PromoteSection = () => {
         initial="hidden"
         animate="visible"
       >
-        <motion.div className="space-y-1" variants={itemVariants}>
+        <motion.div className="space-y-2" variants={itemVariants}>
           <h2 className="text-white font-bold text-xl">
             Join now and Explore the world of courses
           </h2>

@@ -1,28 +1,39 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Search, MenuIcon, ChevronDown, X, ChevronUp } from "lucide-react";
-import AuthModal from "./Landing-page/auth-modal";
+import {
+  Search,
+  MenuIcon,
+  ChevronDown,
+  X,
+  ChevronUp,
+  ChevronRight,
+} from "lucide-react";
 import { useSession } from "next-auth/react";
 import ProfileDropdown from "./profile-menu/profile-dropdown";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isprofessional, setIsprofessional] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isCategories, setIsCategories] = useState(false);
 
-  const categories = [
-    "Development",
-    "Business",
-    "Finance & Accounting",
-    "IT & Software",
-    "Design",
-    "Marketing",
-    "Personal Development",
-    "Music",
-  ];
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const categories = ["Courses", "Internships"];
 
   const professional = [
     "Development",
@@ -35,100 +46,225 @@ const Navbar = () => {
     "Music",
   ];
 
+  const springConfig = {
+    type: "spring",
+    stiffness: 400,
+    damping: 25,
+  };
+
+  const navbarStyles = {
+    backgroundColor:  "white" ,
+    boxShadow:  "0 2px 4px rgba(0,0,0,0.1)"
+  };
+    
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-white transition-all duration-300 backdrop-blur-2xl shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex gap-4">
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={springConfig}
+        style={navbarStyles}
+        className="fixed top-0 w-full z-50 bg-transparent transition-all duration-300"
+      >
+        <div className="max-w-7xl mx-auto px-2 sm:px-2 lg:px-0">
+          <div className={`flex items-center justify-between h-16`}>
+            <div className="flex gap-12 items-center">
               {/* Logo */}
-              <div className="flex-shrink-0 flex items-center">
-                <span className="text-2xl font-bold text-red-600">TedMex</span>
-              </div>
+              <motion.div
+                className="flex items-center gap-2 flex-shrink-0 cursor-pointer"
+                transition={springConfig}
+              >
+                <Image
+                  src="/logo.svg"
+                  alt="logo"
+                  width={56}
+                  height={56}
+                  priority
+                />
+                <span className={`text-xl font-bold text-[var(--primary-color)]`}>
+                  TEDMAX
+                </span>
+              </motion.div>
 
-              <div
-                className="hidden lg:relative lg:flex lg:items-center border rounded-md "
-                onMouseEnter={() => setIsprofessional(true)}
-                onMouseLeave={() => setIsprofessional(false)}
+              <motion.div
+                className={`hidden lg:relative lg:flex lg:items-center border rounded-md border-gray-200`}
+                onMouseEnter={() => setIsCategories(true)}
+                onMouseLeave={() => setIsCategories(false)}
+                whileHover={{ scale: 1.02 }}
+                transition={springConfig}
               >
                 <button
-                  className="flex items-center text-sm gap-1 px-3 py-2 rounded-md text-black hover:text-red-600 transition-all"
-                  onClick={() => setIsprofessional(!setIsprofessional)}
+                  className={`flex items-center text-sm gap-1 px-4 py-2 rounded-md transition-all text-gray-800`}
+                  onClick={() => setIsCategories(!isCategories)}
                 >
                   Explore
-                  {isprofessional ? (
+                  {isCategories ? (
                     <ChevronUp size={16} />
                   ) : (
                     <ChevronDown size={16} />
                   )}
                 </button>
-
-                {isprofessional && (
-                  <div className="absolute top-full mt-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                    <div className="py-1">
-                      {professional.map((professional) => (
-                        <a
-                          key={professional}
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          {professional}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+                
+                
+                <AnimatePresence>
+                  {isprofessional && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={springConfig}
+                      className="absolute top-full mt-3 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                    >
+                      <div className="py-0">
+                        {professional.map((item, index) => (
+                          <motion.a
+                            key={item}
+                            href="#"
+                            className={`
+                              block px-4 py-2 overflow-hidden text-sm text-gray-700
+                             hover:bg-gray-700 hover:text-white
+                             ${index === 0 ? "rounded-t-md" : ""} 
+                             ${
+                               index === professional.length - 1
+                                 ? "rounded-b-md"
+                                 : ""
+                             }
+                           `}
+                          >
+                            {item}
+                          </motion.a>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                <AnimatePresence>
+                  {isCategories && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={springConfig}
+                      className="absolute top-full mt-3 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                    >
+                      <div>
+                        {categories.map((item, index) => (
+                          <motion.div
+                            key={item}
+                            className={`
+                              flex px-4 py-2 overflow-hidden text-sm text-gray-700
+                             hover:bg-gray-700 hover:text-white justify-between items-center cursor-pointer
+                             ${index === 0 ? "rounded-t-md" : ""} 
+                             ${
+                               index === categories.length - 1
+                                 ? "rounded-b-md"
+                                 : ""
+                             }
+                           `}
+                          >
+                            {item}
+                            <ChevronRight className="size-4 " />
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </div>
-            
-            {/* search global */}
-            {/* <div className="hidden lg:flex flex-1 max-w-xl mx-6 ">
-              <div className="w-full relative">
-                <input
-                  type="text"
-                  placeholder="Search for courses..."
-                  className="w-full px-4 py-2 pl-10 pr-4 rounded-lg border border-gray-300 focus:outline-none focus:border-red-500"
-                />
-                <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-              </div>
-            </div> */}
 
             <div className="flex gap-2">
               {process.env.ADMINS?.split(",")
                 .map((email) => email.trim())
                 .includes(session?.user?.email ?? "") && (
                 <div className="flex items-center gap-8">
-                  <button
-                    className="px-4 py-2 text-black rounded-lg transition-all text-sm mr-4"
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    transition={springConfig}
+                    className="px-4 py-2 text-white rounded-lg transition-all text-sm mr-4"
                     onClick={() => router.push("/admin")}
                   >
                     Admin Dashboard
-                  </button>
+                  </motion.button>
                 </div>
               )}
 
               {/* Right Navigation Items */}
               {!session?.user && (
                 <div className="hidden lg:flex items-center gap-4">
-                  <button
-                    className="px-4 py-2 text-black border border-gray-300 rounded-lg hover:border-red-600 hover:text-red-600 transition-all text-sm hover:bg-red-100"
-                    onClick={() => setIsAuthModalOpen(true)}
-                  >
-                    Login
-                  </button>
-                  <button
-                    className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all"
+                  <motion.button
+                    whileHover={{ scale: 1.05, borderColor: "#dc2626" }}
+                    transition={springConfig}
+                    className={`px-4 py-2 border rounded-lg hover:text-red-600 transition-all text-sm hover:bg-red-100 border-gray-200 text-gray-800`}
                     onClick={() => router.push("/signin")}
                   >
-                    Join now
-                  </button>
+                    Login
+                  </motion.button>
+
+                  <motion.div
+                    className="relative"
+                    onHoverStart={() => setIsHovered(true)}
+                    onHoverEnd={() => setIsHovered(false)}
+                  >
+                    <motion.button
+                      className="px-4 py-2 text-sm bg-[var(--primary-color)] text-white rounded-lg hover:bg-red-700 transition-all flex gap-1 text-center overflow-hidden "
+                      onClick={() => router.push("/signup")}
+                      whileHover={{ scale: 1.05 }}
+                      transition={springConfig}
+                    >
+                      <AnimatePresence mode="wait">
+                        {isHovered ? (
+                          <motion.span
+                            key="hovered"
+                            initial={{ y: 30 }}
+                            animate={{ y: 0 }}
+                            exit={{ y: -30 }}
+                            transition={springConfig}
+                            className="flex gap-1 items-center"
+                          >
+                            Join now
+                            <>
+                              <ChevronRight className="size-4  text-white" />
+                            </>
+                          </motion.span>
+                        ) : (
+                          <motion.span
+                            key="normal"
+                            initial={{ y: 30 }}
+                            animate={{ y: 0 }}
+                            exit={{ y: -30 }}
+                            transition={springConfig}
+                            className="flex gap-1 items-center"
+                          >
+                            Join now
+                            <>
+                              <ChevronRight className="size-4  text-white" />
+                            </>
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </motion.button>
+                  </motion.div>
                 </div>
               )}
-              {session?.user && <ProfileDropdown />}
+              {session?.user && (
+                <motion.div
+                  className="flex gap-2 items-center cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  transition={springConfig}
+                >
+                  <ProfileDropdown />
+                  <ChevronDown className="size-4 text-white" />
+                </motion.div>
+              )}
             </div>
 
             {/* Mobile menu button */}
-            <div className="lg:hidden flex items-center">
+            <motion.div
+              className="lg:hidden flex items-center"
+              whileHover={{ scale: 1.1 }}
+              transition={springConfig}
+            >
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-gray-100"
@@ -139,60 +275,61 @@ const Navbar = () => {
                   <MenuIcon className="block h-6 w-6" />
                 )}
               </button>
-            </div>
+            </motion.div>
           </div>
         </div>
 
         {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg">
-              {/* Mobile Search */}
-              <div className="px-3 py-2">
-                <input
-                  type="text"
-                  placeholder="Search for courses..."
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-red-500"
-                />
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={springConfig}
+              className="lg:hidden"
+            >
+              <div className="px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg">
+                <div className="px-3 py-2">
+                  <input
+                    type="text"
+                    placeholder="Search for courses..."
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-red-500"
+                  />
+                </div>
+                {/* Mobile Categories */}
+                <div className="px-3 py-2 font-medium text-gray-600">
+                  Categories
+                </div>
+                {categories.map((category) => (
+                  <a
+                    key={category}
+                    href="#"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-600 hover:bg-gray-100"
+                  >
+                    {category}
+                  </a>
+                ))}
+                {/* Mobile Auth Buttons */}
+                <div className="px-3 py-2 space-y-2">
+                  <button
+                    className="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:border-red-600 hover:text-red-600"
+                    onClick={() => router.push("/signin")}
+                  >
+                    Log In
+                  </button>
+                  <button
+                    className="w-full px-4 py-2 bg-[#C1272D] text-white rounded-lg hover:bg-red-700"
+                    onClick={() => router.push("/signup")}
+                  >
+                    Join now
+                  </button>
+                </div>
               </div>
-
-              {/* Mobile Categories */}
-              <div className="px-3 py-2 font-medium text-gray-600">
-                Categories
-              </div>
-              {categories.map((category) => (
-                <a
-                  key={category}
-                  href="#"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-600 hover:bg-gray-100"
-                >
-                  {category}
-                </a>
-              ))}
-
-              {/* Mobile Auth Buttons */}
-              <div className="px-3 py-2 space-y-2">
-                <button
-                  className="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:border-red-600 hover:text-red-600"
-                  onClick={() => router.push("/signin")}
-                >
-                  Log In
-                </button>
-                <button
-                  className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-                  onClick={() => router.push("/signup")}
-                >
-                  Join now
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-      />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
     </>
   );
 };
