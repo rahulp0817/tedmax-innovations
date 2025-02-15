@@ -1,101 +1,3 @@
-// "use client";
-// import React from "react";
-// import { motion } from "framer-motion";
-// import Image from "next/image";
-// import { Card, CardHeader, CardContent } from "../ui/card";
-// import { Button } from "../ui/button";
-
-// const HeroSection = () => {
-//   return (
-//     <div className="relative">
-//       {/* Hero Image Section */}
-//       <div className="relative md:h-[600px] h-[136] mx-4 md:mx-0 md:top-0 top-20 ">
-//         <Image
-//           src="/landingHero.jpg"
-//           alt="Image description"
-//           width={1920}
-//           height={600}
-//           className="w-full h-full object-cover rounded-xl md:rounded-none"
-//         />
-//         <div className="absolute inset-0 rounded-xl md:rounded-none bg-gradient-to-b from-black/60 to-black/60" />
-
-//         {/* Hero Text */}
-//         <motion.div
-//           initial={{ opacity: 0, y: 20 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           transition={{
-//             duration: 0.8,
-//             type: "spring",
-//             stiffness: 100,
-//           }}
-//           className="absolute top-1/4 md:top-[40%] transform -translate-y-1/2 text-center w-full px-8 text-white"
-//         >
-//           <motion.h1
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ delay: 0.2, duration: 0.8 }}
-//             className="md:text-7xl text-2xl font-semibold mb-4"
-//           >
-//             Learn something new everyday
-//           </motion.h1>
-//           <motion.p
-//             initial={{ opacity: 0, y: 20 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ delay: 0.4, duration: 0.8 }}
-//             className=" text-sm md:text-3xl mb-8"
-//           >
-//             Become professionals and ready to join the world!
-//           </motion.p>
-//         </motion.div>
-//       </div>
-
-//       {/* Search Card Section */}
-//       <motion.div
-//         initial={{ y: 50, opacity: 0 }}
-//         animate={{ y: -80, opacity: 1 }}
-//         transition={{
-//           type: "spring",
-//           stiffness: 100,
-//           damping: 20,
-//           delay: 0.6,
-//         }}
-//         className="relative z-10 max-w-6xl mx-auto px-4"
-//       >
-//         <Card className="shadow-xl">
-//           <CardHeader className="font-semibold text-xl">
-//             What do you want to learn?
-//           </CardHeader>
-//           <CardContent className="flex flex-col sm:flex-row gap-4">
-//             <motion.div
-//               className="flex-1 flex gap-6"
-//               whileTap={{ scale: 0.995 }}
-//             >
-//               <input
-//                 type="text"
-//                 placeholder="Search for popular courses"
-//                 className="h-12 w-full bg-gray-100 px-4 rounded-lg outline-none focus:ring-2 focus:ring-red-500 transition-all"
-//               />
-//               <motion.div
-//                 whileHover={{ scale: 1.05 }}
-//                 whileTap={{ scale: 0.95 }}
-//               >
-//                 <Button
-//                   className="bg-[#C1272D] hover:bg-[#a61f24] transition-colors h-12 w-full sm:w-auto"
-//                   size="lg"
-//                 >
-//                   Search
-//                 </Button>
-//               </motion.div>
-//             </motion.div>
-//           </CardContent>
-//         </Card>
-//       </motion.div>
-//     </div>
-//   );
-// };
-
-// export default HeroSection;
-
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -104,8 +6,8 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { Card, CardHeader, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import courses from "@/app/courses/data";
-import { internships } from "@/app/internships/data";
+import courses from "@/app/(public)/courses/data";
+import { internships } from "@/app/(public)/internships/data";
 
 const HeroSection = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -116,8 +18,8 @@ const HeroSection = () => {
   const router = useRouter();
 
   const categories = [
-    { id: 'all', name: 'All Programs', count: 20 },
-    { id: 'popular', name: 'Popular Programs', count: 3 },
+    // { id: 'all', name: 'All Programs', count: 20 },
+    // { id: 'popular', name: 'Popular Programs', count: 3 },
     { id: 'cs', name: 'Computer Science & Technology', count: 8 },
     { id: 'ee', name: 'Electrical & Electronics Engineering', count: 5 },
     { id: 'me', name: 'Mechanical & Manufacturing Engineering', count: 5 },
@@ -125,7 +27,7 @@ const HeroSection = () => {
   ];
 
   const internshipCategories = [
-    { id: 'all', name: 'All Internships', count: internships.length },
+    // { id: 'all', name: 'All Internships', count: internships.length },
     { id: 'popular', name: 'Popular Internships', count: internships.filter(internship => internship.category.includes('Popular Internships')).length },
     { id: 'software', name: 'Software Development', count: internships.filter(internship => internship.category.includes('software')).length },
     { id: 'data', name: 'Data Analytics', count: internships.filter(internship => internship.category.includes('data')).length },
@@ -153,7 +55,8 @@ const HeroSection = () => {
       category.name.toLowerCase().includes(term.toLowerCase())
     );
 
-    setFilteredResults([
+    // Combine all results and remove duplicates
+    const combinedResults = [
       ...filteredCourses.map(course => ({
         ...course,
         type: 'course'
@@ -170,30 +73,40 @@ const HeroSection = () => {
         ...category,
         type: 'internshipCategory'
       }))
-    ]);
+    ];
+
+    // Remove duplicates based on title or name
+    const uniqueResults = combinedResults.filter((item, index, self) =>
+      index === self.findIndex((t) => (
+        t.title === item.title || t.name === item.name
+      ))
+    );
+
+    setFilteredResults(uniqueResults);
   };
 
   const handleSearchFocus = () => {
     const navbarHeight = 80;
     const offset = searchContainerRef.current.getBoundingClientRect().top + window.scrollY - navbarHeight;
-    
+  
     window.scrollTo({
       top: offset,
       behavior: 'smooth',
       duration: 1000
     });
-
+  
     setShowDropdown(true);
-    setFilteredResults([
-      ...courses
-        .filter(course => course.category.includes("popular"))
-        .slice(0, 5)
-        .map(course => ({ ...course, type: 'course' })),
-      ...internships
-        .filter(internship => internship.category.includes("Popular Internships"))
-        .slice(0, 5)
-        .map(internship => ({ ...internship, type: 'internship' }))
-    ]);
+  
+    // Populate initial results with 4-5 courses and internships
+    const initialCourses = courses.slice(0, 5).map(course => ({
+      ...course,
+      type: 'course'
+    }));
+  
+    // Combine initial results
+    const initialResults = [...initialCourses];
+  
+    setFilteredResults(initialResults);
   };
 
   const handleItemSelect = (item) => {
@@ -214,50 +127,12 @@ const HeroSection = () => {
   };
 
   const handleSearchSubmit = () => {
-    // First, try to find an exact category match
-    const exactCategory = categories.find(cat => 
-      cat.name.toLowerCase() === searchTerm.toLowerCase()
-    );
-    
-    // If no exact match, try partial match
-    const partialCategory = categories.find(cat => 
-      cat.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const exactInternshipCategory = internshipCategories.find(cat => 
-      cat.name.toLowerCase() === searchTerm.toLowerCase()
-    );
-
-    const partialInternshipCategory = internshipCategories.find(cat => 
-      cat.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    
-    if (exactCategory) {
-      router.push(`/explore-courses?category=${exactCategory.id}`);
-    } else if (partialCategory) {
-      router.push(`/explore-courses?category=${partialCategory.id}`);
-    } else if (exactInternshipCategory) {
-      router.push(`/explore-internships?category=${exactInternshipCategory.id}`);
-    } else if (partialInternshipCategory) {
-      router.push(`/explore-internships?category=${partialInternshipCategory.id}`);
+    if (searchTerm) {
+      handleSearch(searchTerm);
+      setShowDropdown(true);
     } else {
-      // If no category match, try to find a course or internship
-      const course = courses.find(c => 
-        c.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      const internship = internships.find(i => 
-        i.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      if (course) {
-        router.push(`/courses/${generateSlug(course.title)}`);
-      } else if (internship) {
-        router.push(`/internships/${generateSlug(internship.title)}`);
-      } else {
-        // If no matches found, go to explore-courses with the search term
-        router.push(`/explore-courses?search=${encodeURIComponent(searchTerm)}`);
-      }
+      setShowDropdown(false);
     }
-    setShowDropdown(false);
   };
 
   useEffect(() => {
@@ -274,6 +149,8 @@ const HeroSection = () => {
   useEffect(() => {
     if (searchTerm) {
       handleSearch(searchTerm);
+    } else {
+      setFilteredResults([]);
     }
   }, [searchTerm]);
 
@@ -289,7 +166,7 @@ const HeroSection = () => {
           className="w-full h-full object-cover rounded-xl md:rounded-none"
         />
         <div className="absolute inset-0 rounded-xl md:rounded-none bg-gradient-to-b from-black/60 to-black/60" />
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -346,7 +223,7 @@ const HeroSection = () => {
                 placeholder="Search for popular courses or internships"
                 className="h-12 w-full bg-gray-100 px-4 rounded-lg outline-none focus:ring-2 focus:ring-red-500 transition-all"
               />
-              
+
               <AnimatePresence>
                 {showDropdown && (
                   <motion.div
@@ -357,22 +234,18 @@ const HeroSection = () => {
                   >
                     {filteredResults.map((item, index) => (
                       <div
-                        key={item.id}
+                        key={item.id || index}
                         onClick={() => handleItemSelect(item)}
                         className={`
-                          p-4 hover:bg-gray-50 cursor-pointer transition-colors
-                          ${index !== filteredResults.length - 1 ? 'border-b border-gray-100' : ''}
-                        `}
+            p-4 hover:bg-gray-50 cursor-pointer transition-colors
+            ${index !== filteredResults.length - 1 ? 'border-b border-gray-100' : ''}
+          `}
                       >
                         {item.type === 'course' ? (
                           <div className="flex justify-between items-start">
                             <div>
                               <div className="font-medium text-gray-900">{item.title}</div>
-                              {/* <div className="text-sm text-gray-500 mt-1">
-                                {item.duration} • {item.learners} learners
-                              </div> */}
                             </div>
-                            {/* <span className="text-red-600 font-medium">{item.price}</span> */}
                           </div>
                         ) : item.type === 'internship' ? (
                           <div className="flex justify-between items-start">
