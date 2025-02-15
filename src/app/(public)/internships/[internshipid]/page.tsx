@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
-import InternshipDetails from "@/app/internship-description/internship-details";
-import { internships } from "@/app/internships/data";
+import InternshipDetails from "@/app/(public)/internship-description/internship-details";
+import { internships } from "@/app/(public)/internships/data";
 
 const generateSlug = (title) => {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");

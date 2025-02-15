@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, Users, Clock,ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import courses from "@/app/courses/data"
+import courses from "@/app/(public)/courses/data"
 const CourseExplorer = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');

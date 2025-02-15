@@ -29,7 +29,7 @@ const InternshipExplorer = () => {
   };
 
   // Handle Internship Click
-  const handleInternshipClick = (internship) => {
+  const handleInternshipClick = (internship:string) => {
     router.push(`/internships/${generateSlug(internship.title)}`);
   };
 

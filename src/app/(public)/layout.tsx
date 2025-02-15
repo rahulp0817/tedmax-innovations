@@ -1,7 +1,7 @@
-import Navbar from "@/components/navbar";
 import React from "react";
+import Navbar from "@/components/navbar";
 
-export default async function AdminLayout({
+export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
