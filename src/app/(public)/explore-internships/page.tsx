@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
-  House,
+  Users,
   Clock,
   MapPin,
   Wallet,
@@ -14,10 +14,23 @@ import { useRouter } from "next/navigation";
 import { internships } from "@/app/(public)/internships/data";
 
 const InternshipExplorer = () => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchParams = useSearchParams();
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [hoveredCard, setHoveredCard] = useState(null);
-  const router = useRouter();
+
+  // Read URL parameters on component mount
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+
+    const searchParam = searchParams.get('search');
+    if (searchParam) {
+      setSearchQuery(searchParam);
+    }
+  }, [searchParams]);
 
   // Generate URL-friendly slug
   const generateSlug = (title) => {
@@ -33,7 +46,7 @@ const InternshipExplorer = () => {
     router.push(`/internships/${generateSlug(internship.title)}`);
   };
 
-  // Calculate category counts dynamically
+  // Calculate category counts dynamically - Updated to match first version
   const getCategoryCounts = () => ({
     all: internships.length,
     popular: internships.filter((internship) =>
@@ -88,6 +101,7 @@ const InternshipExplorer = () => {
     { id: "finance", name: "Finance", count: categoryCounts.finance },
   ];
 
+  // Updated filter logic to match first version
   const displayedInternships = internships.filter((internship) => {
     const matchesCategory =
       selectedCategory === "all" ||
@@ -98,15 +112,22 @@ const InternshipExplorer = () => {
     const matchesSearch =
       internship.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       internship.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      internship.skills.some((skill) =>
-        skill.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      internship.skills.some((skill) => skill.toLowerCase().includes(searchQuery.toLowerCase()));
 
     return matchesCategory && matchesSearch;
   });
 
+  // Update URL when category changes
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategory(categoryId);
+    const url = new URL(window.location.href);
+    url.searchParams.set('category', categoryId);
+    window.history.pushState({}, '', url);
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-6 mb-24 mt-16">
+      {/* Rest of the JSX remains the same */}
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-6">
         <Link
@@ -147,11 +168,11 @@ const InternshipExplorer = () => {
                   key={category.id}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => setSelectedCategory(category.id)}
+                  onClick={() => handleCategoryChange(category.id)}
                   className={`w-full text-left px-3 py-2 rounded-md flex justify-between items-center ${
                     selectedCategory === category.id
-                      ? "bg-red-100 text-red-600"
-                      : "hover:bg-gray-50"
+                      ? 'bg-red-100 text-red-600'
+                      : 'hover:bg-gray-50'
                   }`}
                 >
                   <span>{category.name}</span>
@@ -194,7 +215,6 @@ const InternshipExplorer = () => {
                   onHoverStart={() => setHoveredCard(internship.id)}
                   onHoverEnd={() => setHoveredCard(null)}
                   layout
-                  onClick={() => handleInternshipClick(internship)}
                 >
                   <Link
                     href={`/internships/${generateSlug(internship.title)}`}
@@ -209,7 +229,7 @@ const InternshipExplorer = () => {
                             alt='banner'
                             className="w-full h-full object-contain rounded-xl"
                             onError={(e) => {
-                              e.target.src = "/placeholder-company.png";
+                              e.target.src = '/placeholder-company.png';
                             }}
                           />
                         </div>
@@ -235,6 +255,9 @@ const InternshipExplorer = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           <Clock size={16} /> {internship.duration}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Users size={16} /> {internship.applicants} applicants
                         </div>
                       </div>
 

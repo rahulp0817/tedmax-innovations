@@ -131,11 +131,10 @@ const LandingNavbar = () => {
                               block px-4 py-2 overflow-hidden text-sm text-gray-700
                              hover:bg-gray-700 hover:text-white
                              ${index === 0 ? "rounded-t-md" : ""} 
-                             ${
-                               index === professional.length - 1
-                                 ? "rounded-b-md"
-                                 : ""
-                             }
+                             ${index === professional.length - 1
+                                ? "rounded-b-md"
+                                : ""
+                              }
                            `}
                           >
                             {item}
@@ -162,11 +161,10 @@ const LandingNavbar = () => {
                               flex px-4 py-2 overflow-hidden text-sm text-gray-700
                              hover:bg-gray-700 hover:text-white justify-between items-center cursor-pointer
                              ${index === 0 ? "rounded-t-md" : ""} 
-                             ${
-                               index === categories.length - 1
-                                 ? "rounded-b-md"
-                                 : ""
-                             }
+                             ${index === categories.length - 1
+                                ? "rounded-b-md"
+                                : ""
+                              }
                            `}
                           >
                             {item}
@@ -184,17 +182,17 @@ const LandingNavbar = () => {
               {process.env.ADMINS?.split(",")
                 .map((email) => email.trim())
                 .includes(session?.user?.email ?? "") && (
-                <div className="flex items-center gap-8">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    transition={springConfig}
-                    className="px-4 py-2 text-white rounded-lg transition-all text-sm mr-4"
-                    onClick={() => router.push("/admin")}
-                  >
-                    Admin Dashboard
-                  </motion.button>
-                </div>
-              )}
+                  <div className="flex items-center gap-8">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      transition={springConfig}
+                      className="px-4 py-2 text-white rounded-lg transition-all text-sm mr-4"
+                      onClick={() => router.push("/admin")}
+                    >
+                      Admin Dashboard
+                    </motion.button>
+                  </div>
+                )}
 
               {/* Right Navigation Items */}
               {!session?.user && (
