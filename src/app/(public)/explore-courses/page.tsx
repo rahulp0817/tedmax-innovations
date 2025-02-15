@@ -10,7 +10,7 @@ const CourseExplorer = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Read URL parameters on component mount
@@ -26,11 +26,11 @@ const CourseExplorer = () => {
     }
   }, [searchParams]);
 
-  const generateSlug = (title) => {
+  const generateSlug = (title: string) => {
     return title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
   };
 
-  const getCategoryCount = (categoryId) => {
+  const getCategoryCount = (categoryId: string) => {
     if (categoryId === 'all') {
       return courses.length;
     }
@@ -66,7 +66,7 @@ const CourseExplorer = () => {
   });
 
   // Update URL when category changes
-  const handleCategoryChange = (categoryId) => {
+  const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
     const url = new URL(window.location.href);
     url.searchParams.set('category', categoryId);
@@ -202,7 +202,7 @@ const CourseExplorer = () => {
                             alt={course.title}
                             className="w-full h-full object-contain rounded-xl"
                             onError={(e) => {
-                              e.target.src = '/placeholder-course.png';
+                              (e.target as HTMLImageElement).src = '/placeholder-course.png';
                             }}
                           />
                         </div>
@@ -219,9 +219,6 @@ const CourseExplorer = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           <Wallet size={16} /> {course.price}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Users size={16} /> {course.learners} learners
                         </div>
                         <div className="flex items-center gap-2">
                           <span className="px-2 py-1 bg-gray-100 rounded-full text-xs capitalize">

@@ -15,10 +15,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { internships } from "@/app/(public)/internships/data";
 
 const InternshipExplorer = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   // Read URL parameters on component mount
   useEffect(() => {
@@ -34,7 +35,7 @@ const InternshipExplorer = () => {
   }, [searchParams]);
 
   // Generate URL-friendly slug
-  const generateSlug = (title) => {
+  const generateSlug = (title: string) => {
     return title
       .toLowerCase()
       .trim()
@@ -43,11 +44,10 @@ const InternshipExplorer = () => {
   };
 
   // Handle Internship Click
-  const handleInternshipClick = (internship: string) => {
+  const handleInternshipClick = (internship: { title: string }) => {
     router.push(`/internships/${generateSlug(internship.title)}`);
   };
 
-  // Calculate category counts dynamically - Updated to match first version
   const getCategoryCounts = () => ({
     all: internships.length,
     popular: internships.filter((internship) =>
@@ -121,7 +121,7 @@ const InternshipExplorer = () => {
   });
 
   // Update URL when category changes
-  const handleCategoryChange = (categoryId) => {
+  const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
     const url = new URL(window.location.href);
     url.searchParams.set("category", categoryId);
@@ -232,7 +232,7 @@ const InternshipExplorer = () => {
                             alt="banner"
                             className="w-full h-full object-contain rounded-xl"
                             onError={(e) => {
-                              e.target.src = "/placeholder-company.png";
+                              (e.target as HTMLImageElement).src = "/placeholder-company.png";
                             }}
                           />
                         </div>

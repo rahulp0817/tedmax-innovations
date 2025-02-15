@@ -21,9 +21,7 @@ import {
 import Image from "next/image";
 
 const InternshipDetails = ({ internship }) => {
-  const [expandedModules, setExpandedModules] = useState({});
 
-  // Default content if the internship isn't in the predefined list
   const defaultContent = {
     description: `This internship provides hands-on experience in ${internship?.title}. Gain real-world expertise through structured training and projects.`,
     modules: [
