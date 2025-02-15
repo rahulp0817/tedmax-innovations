@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { notFound, redirect } from "next/navigation";
 import React from "react";
+import Footer from "@/components/Footer";
 
 export default async function AdminLayout({
   children,
@@ -33,8 +34,9 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="mt-[6rem] flex h-[calc(100vh-36px-4rem)] max-h-full">
+    <div className="mt-[6rem] h-[calc(100vh-36px-4rem)] max-h-full">
       {children}
+      <Footer />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/config/site-config";
@@ -19,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <NextTopLoader color="#C1272D" height={3} showSpinner={false} />
         <Providers>
           {children}
-          <Footer />
           <Toaster />
         </Providers>
       </body>

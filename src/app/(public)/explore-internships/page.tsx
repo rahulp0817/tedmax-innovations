@@ -174,7 +174,7 @@ const InternshipExplorer = () => {
               {displayedInternships.map((internship, index) => (
                 <motion.div
                   key={internship.id}
-                  className="w-full bg-white rounded-xl overflow-hidden shadow cursor-pointer h-[400px]"
+                  className="w-full bg-white rounded-xl overflow-hidden shadow cursor-pointer hover:shadow-lg"
                   variants={{
                     hidden: { opacity: 0, y: 20 },
                     visible: {
@@ -200,33 +200,30 @@ const InternshipExplorer = () => {
                     href={`/internships/${generateSlug(internship.title)}`}
                     className="block h-full"
                   >
-                    <motion.div className="p-6 h-full flex flex-col">
+                    <motion.div className="p-4 rounded-xl">
                       {/* Company Logo and Info */}
-                      <div className="flex items-start gap-4 mb-4">
-                        <div className="w-12 h-12 flex-shrink-0">
+                      <div className="items-start gap-4 mb-4">
+                        <div className="w-58 h-40 rounded-xl flex-shrink-0">
                           <img
                             src={internship.image}
-                            alt={internship.company}
-                            className="w-full h-full object-cover rounded"
+                            alt='banner'
+                            className="w-full h-full object-contain rounded-xl"
                             onError={(e) => {
                               e.target.src = "/placeholder-company.png";
                             }}
                           />
                         </div>
                         <div className="flex-1">
-                          <motion.h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2 h-14">
+                          <motion.h3 className="text-md font-semibold text-gray-900 mb-1 mt-2 line-clamp-2 h-12">
                             {internship.title}
                           </motion.h3>
-                          <p className="text-sm text-gray-600 truncate">
-                            {internship.company}
-                          </p>
                         </div>
                       </div>
 
                       {/* Description */}
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-2 h-10">
+                      {/* <p className="text-sm text-gray-600 mb-4 line-clamp-2 h-10">
                         {internship.description}
-                      </p>
+                      </p> */}
 
                       {/* Details */}
                       <div className="space-y-3 mb-4 text-sm text-gray-600">
@@ -239,13 +236,10 @@ const InternshipExplorer = () => {
                         <div className="flex items-center gap-2">
                           <Clock size={16} /> {internship.duration}
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Users size={16} /> {internship.applicants} applicants
-                        </div>
                       </div>
 
                       {/* Tech Stacks */}
-                      <div className="flex flex-wrap gap-2">
+                      {/* <div className="flex flex-wrap gap-2">
                         {internship.skills.map((skill, idx) => (
                           <span
                             key={idx}
@@ -254,7 +248,7 @@ const InternshipExplorer = () => {
                             {skill}
                           </span>
                         ))}
-                      </div>
+                      </div> */}
                     </motion.div>
                   </Link>
                 </motion.div>
