@@ -67,12 +67,12 @@ const Footer = () => {
             <div className="flex items-center gap-2 flex-shrink-0 cursor-pointer">
               <div className="">
                 <Image
-                src="/logo.svg"
-                alt="logo"
-                width={56}
-                height={56}
-                priority
-              />
+                  src="/logo.svg"
+                  alt="logo"
+                  width={56}
+                  height={56}
+                  priority
+                />
               </div>
               <h3 className="text-2xl font-bold text-[var(--primary-color)] ">
                 TEDMAX
@@ -165,7 +165,7 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Newsletter */}
+          {/* Terms and policy */}
           <motion.div variants={itemVariants}>
             <h4 className="text-lg font-semibold text-white mb-6">
               Terms and Policy
