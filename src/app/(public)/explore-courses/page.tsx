@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, Wallet, Clock, ChevronRight } from "lucide-react";
+import { Search, House, Wallet, Clock, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import courses from "@/app/(public)/courses/data";
 const CourseExplorer = () => {
@@ -93,12 +93,12 @@ const CourseExplorer = () => {
       <nav className="flex items-center gap-2 text-sm mb-2">
         <Link
           href="/"
-          className="text-gray-600 hover:text-red-600 transition-colors"
+          className="text-gray-500 hover:text-red-600 transition-colors"
         >
-          Home
+         <House className="w-4 h-4"/>
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
-        <span className="text-red-600 font-medium">Courses</span>
+        <span className="text-gray-500 font-medium">Courses</span>
       </nav>
       <div className="flex justify-between items-center mb-8 top-0 bg-white z-10">
         <h1 className="text-4xl font-bold text-red-600">

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
-  Users,
+  House,
   Clock,
   MapPin,
   Wallet,
@@ -113,7 +113,7 @@ const InternshipExplorer = () => {
           href="/"
           className="text-gray-600 hover:text-red-600 transition-colors"
         >
-          Home
+          <House className="w-4 h-4"/>
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
         <span className="text-red-600 font-medium">Internships</span>
@@ -128,7 +128,7 @@ const InternshipExplorer = () => {
           <input
             type="text"
             placeholder="Search internships..."
-            className="pl-10 pr-4 py-2 border rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="pl-10 pr-4 py-2 border rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-red-300"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

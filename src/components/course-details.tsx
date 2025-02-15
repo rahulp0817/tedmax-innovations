@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Users, Clock, Star, Download, CheckCircle, ChevronDown, ChevronUp, ChevronRight } from 'lucide-react';
+import { Users, Clock, Star, Download, CheckCircle, ChevronDown, ChevronUp, ChevronRight, House } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
@@ -57,11 +57,11 @@ const CourseDetails = ({ course }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-0 mb-32">
       {/* Breadcrumb Navigation */}
       <nav className="flex items-center gap-2 text-sm mb-6">
         <Link href="/" className="text-gray-600 hover:text-red-600 transition-colors">
-          Home
+          <House className="w-4 h-4"/>
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
         <Link href="/explore-courses" className="text-gray-600 hover:text-red-600 transition-colors">
@@ -77,24 +77,22 @@ const CourseDetails = ({ course }) => {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl p-8 text-white mb-8"
+        className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl p-6 text-white mb-8 gap-4"
       >
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Course Image */}
+        <div className="flex flex-col md:flex-row gap-12">
+          {/* Internship Image */}
           <div className="w-full md:w-1/3">
-            <div className="aspect-video rounded-xl overflow-hidden">
-              <img
-                src="/Images.jpg"
-                alt={course?.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <img
+              src={course?.image}
+              alt={course?.title}
+              className="rounded-xl object-cover "
+            />
           </div>
           
           {/* Course Info */}
           <div className="w-full md:w-2/3">
-            <h1 className="text-3xl font-bold mb-4">{course?.title}</h1>
-            <div className="flex flex-wrap gap-6 mb-6">
+            <h1 className="text-2xl font-bold mb-4 line-clamp-1">{course?.title}</h1>
+            <div className=" space-y-2 gap-6 mb-6">
               <div className="flex items-center gap-2">
                 <Users className="w-5 h-5" />
                 <span>{course?.learners} learners</span>
@@ -111,7 +109,7 @@ const CourseDetails = ({ course }) => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium"
+              className="bg-red-600 text-white px-5 py-3 rounded-lg font-medium text-sm"
             >
               Enroll Now
             </motion.button>
