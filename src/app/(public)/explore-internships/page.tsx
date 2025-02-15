@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/app/explore-internships/page.tsx
 // "use client";
 // import React, { useState } from "react";
 // import { motion, AnimatePresence } from "framer-motion";
@@ -207,6 +208,22 @@ import { Search, Users, Clock, MapPin, Wallet, ChevronRight } from 'lucide-react
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { internships } from '@/app/internships/data';
+=======
+"use client";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Search,
+  Users,
+  Clock,
+  MapPin,
+  Wallet,
+  ChevronRight,
+} from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { internships } from "@/app/(public)/internships/data";
+>>>>>>> 01f2af958162f5c5334a9a21fa2cc7be37985c62:src/app/(public)/explore-internships/page.tsx
 
 const InternshipExplorer = () => {
   const searchParams = useSearchParams();
@@ -232,13 +249,24 @@ const InternshipExplorer = () => {
     return title
       .toLowerCase()
       .trim()
+<<<<<<< HEAD:src/app/explore-internships/page.tsx
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
+=======
+      .replace(/[^a-z0-9]+/g, "-") // Convert to slug format
+      .replace(/^-+|-+$/g, ""); // Remove extra hyphens
+  };
+
+  // Handle Internship Click
+  const handleInternshipClick = (internship:string) => {
+    router.push(`/internships/${generateSlug(internship.title)}`);
+>>>>>>> 01f2af958162f5c5334a9a21fa2cc7be37985c62:src/app/(public)/explore-internships/page.tsx
   };
 
   // Calculate category counts dynamically - Updated to match first version
   const getCategoryCounts = () => ({
     all: internships.length,
+<<<<<<< HEAD:src/app/explore-internships/page.tsx
     popular: internships.filter((internship) => internship.applicants?.includes('k+')).length,
     software: internships.filter((internship) => internship.category === 'software').length,
     data: internships.filter((internship) => internship.category === 'data').length,
@@ -247,11 +275,34 @@ const InternshipExplorer = () => {
     design: internships.filter((internship) => internship.category === 'design').length,
     hr: internships.filter((internship) => internship.category === 'hr').length,
     finance: internships.filter((internship) => internship.category === 'finance').length,
+=======
+    popular: internships.filter((internship) =>
+      internship.applicants?.includes("k+")
+    ).length,
+    software: internships.filter(
+      (internship) => internship.category === "software"
+    ).length,
+    data: internships.filter((internship) => internship.category === "data")
+      .length,
+    business: internships.filter(
+      (internship) => internship.category === "business"
+    ).length,
+    marketing: internships.filter(
+      (internship) => internship.category === "marketing"
+    ).length,
+    design: internships.filter((internship) => internship.category === "design")
+      .length,
+    hr: internships.filter((internship) => internship.category === "hr").length,
+    finance: internships.filter(
+      (internship) => internship.category === "finance"
+    ).length,
+>>>>>>> 01f2af958162f5c5334a9a21fa2cc7be37985c62:src/app/(public)/explore-internships/page.tsx
   });
 
   const categoryCounts = getCategoryCounts();
 
   const categories = [
+<<<<<<< HEAD:src/app/explore-internships/page.tsx
     { id: 'all', name: 'All Internships', count: categoryCounts.all },
     { id: 'popular', name: 'Popular Internships', count: categoryCounts.popular },
     { id: 'software', name: 'Software Development', count: categoryCounts.software },
@@ -261,13 +312,46 @@ const InternshipExplorer = () => {
     { id: 'design', name: 'UI/UX Design', count: categoryCounts.design },
     { id: 'hr', name: 'Human Resources', count: categoryCounts.hr },
     { id: 'finance', name: 'Finance', count: categoryCounts.finance },
+=======
+    { id: "all", name: "All Internships", count: categoryCounts.all },
+    {
+      id: "popular",
+      name: "Popular Internships",
+      count: categoryCounts.popular,
+    },
+    {
+      id: "software",
+      name: "Software Development",
+      count: categoryCounts.software,
+    },
+    { id: "data", name: "Data Analytics", count: categoryCounts.data },
+    {
+      id: "business",
+      name: "Business Development",
+      count: categoryCounts.business,
+    },
+    {
+      id: "marketing",
+      name: "Digital Marketing",
+      count: categoryCounts.marketing,
+    },
+    { id: "design", name: "UI/UX Design", count: categoryCounts.design },
+    { id: "hr", name: "Human Resources", count: categoryCounts.hr },
+    { id: "finance", name: "Finance", count: categoryCounts.finance },
+>>>>>>> 01f2af958162f5c5334a9a21fa2cc7be37985c62:src/app/(public)/explore-internships/page.tsx
   ];
 
   // Updated filter logic to match first version
   const displayedInternships = internships.filter((internship) => {
     const matchesCategory =
+<<<<<<< HEAD:src/app/explore-internships/page.tsx
       selectedCategory === 'all' ||
       (selectedCategory === 'popular' && internship.applicants?.includes('k+')) ||
+=======
+      selectedCategory === "all" ||
+      (selectedCategory === "popular" &&
+        internship.applicants.includes("k+")) ||
+>>>>>>> 01f2af958162f5c5334a9a21fa2cc7be37985c62:src/app/(public)/explore-internships/page.tsx
       internship.category === selectedCategory;
 
     const matchesSearch =
@@ -291,7 +375,10 @@ const InternshipExplorer = () => {
       {/* Rest of the JSX remains the same */}
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-6">
-        <Link href="/" className="text-gray-600 hover:text-red-600 transition-colors">
+        <Link
+          href="/"
+          className="text-gray-600 hover:text-red-600 transition-colors"
+        >
           Home
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -300,7 +387,9 @@ const InternshipExplorer = () => {
 
       {/* Header */}
       <div className="flex justify-between items-center mb-8 sticky top-0 bg-white z-10 py-4">
-        <h1 className="text-4xl font-bold text-red-600">Find Your Internship</h1>
+        <h1 className="text-4xl font-bold text-red-600">
+          Find Your Internship
+        </h1>
         <div className="relative">
           <input
             type="text"
@@ -332,7 +421,9 @@ const InternshipExplorer = () => {
                   }`}
                 >
                   <span>{category.name}</span>
-                  <span className="text-sm text-gray-500">({category.count})</span>
+                  <span className="text-sm text-gray-500">
+                    ({category.count})
+                  </span>
                 </motion.button>
               ))}
             </div>
@@ -341,16 +432,27 @@ const InternshipExplorer = () => {
 
         {/* Internship Grid */}
         <div className="flex-1">
-          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" layout>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            layout
+          >
             <AnimatePresence mode="popLayout">
               {displayedInternships.map((internship, index) => (
                 <motion.div
                   key={internship.id}
-                  className="w-full bg-white rounded-xl overflow-hidden shadow cursor-pointer h-[400px]"
+                  className="w-full bg-white rounded-xl overflow-hidden shadow cursor-pointer hover:shadow-lg"
                   variants={{
                     hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.1 } },
-                    hover: { scale: 1.03, y: -8, transition: { duration: 0.3 } },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.5, delay: index * 0.1 },
+                    },
+                    hover: {
+                      scale: 1.03,
+                      y: -8,
+                      transition: { duration: 0.3 },
+                    },
                   }}
                   initial="hidden"
                   animate="visible"
@@ -359,30 +461,34 @@ const InternshipExplorer = () => {
                   onHoverEnd={() => setHoveredCard(null)}
                   layout
                 >
-                  <Link href={`/internships/${generateSlug(internship.title)}`} className="block h-full">
-                    <motion.div className="p-6 h-full flex flex-col">
+                  <Link
+                    href={`/internships/${generateSlug(internship.title)}`}
+                    className="block h-full"
+                  >
+                    <motion.div className="p-4 rounded-xl">
                       {/* Company Logo and Info */}
-                      <div className="flex items-start gap-4 mb-4">
-                        <div className="w-12 h-12 flex-shrink-0">
+                      <div className="items-start gap-4 mb-4">
+                        <div className="w-58 h-40 rounded-xl flex-shrink-0">
                           <img
                             src={internship.image}
-                            alt={internship.company}
-                            className="w-full h-full object-cover rounded"
+                            alt='banner'
+                            className="w-full h-full object-contain rounded-xl"
                             onError={(e) => {
                               e.target.src = '/placeholder-company.png';
                             }}
                           />
                         </div>
                         <div className="flex-1">
-                          <motion.h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-2 h-14">
+                          <motion.h3 className="text-md font-semibold text-gray-900 mb-1 mt-2 line-clamp-2 h-12">
                             {internship.title}
                           </motion.h3>
-                          <p className="text-sm text-gray-600 truncate">{internship.company}</p>
                         </div>
                       </div>
 
                       {/* Description */}
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-2 h-10">{internship.description}</p>
+                      {/* <p className="text-sm text-gray-600 mb-4 line-clamp-2 h-10">
+                        {internship.description}
+                      </p> */}
 
                       {/* Details */}
                       <div className="space-y-3 mb-4 text-sm text-gray-600">
@@ -395,19 +501,25 @@ const InternshipExplorer = () => {
                         <div className="flex items-center gap-2">
                           <Clock size={16} /> {internship.duration}
                         </div>
+<<<<<<< HEAD:src/app/explore-internships/page.tsx
                         <div className="flex items-center gap-2">
                           <Users size={16} /> {internship.applicants} applicants
                         </div>
+=======
+>>>>>>> 01f2af958162f5c5334a9a21fa2cc7be37985c62:src/app/(public)/explore-internships/page.tsx
                       </div>
 
                       {/* Tech Stacks */}
-                      <div className="flex flex-wrap gap-2">
+                      {/* <div className="flex flex-wrap gap-2">
                         {internship.skills.map((skill, idx) => (
-                          <span key={idx} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                          <span
+                            key={idx}
+                            className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
+                          >
                             {skill}
                           </span>
                         ))}
-                      </div>
+                      </div> */}
                     </motion.div>
                   </Link>
                 </motion.div>

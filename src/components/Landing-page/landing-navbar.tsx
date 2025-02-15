@@ -111,7 +111,8 @@ const LandingNavbar = () => {
                     <ChevronDown size={16} />
                   )}
                 </button>
-
+                
+                
                 <AnimatePresence>
                   {isprofessional && (
                     <motion.div
