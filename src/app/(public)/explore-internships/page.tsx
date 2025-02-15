@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -7,26 +7,27 @@ import {
   Clock,
   MapPin,
   Wallet,
+  House,
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { internships } from "@/app/(public)/internships/data";
 
 const InternshipExplorer = () => {
   const searchParams = useSearchParams();
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [hoveredCard, setHoveredCard] = useState(null);
 
   // Read URL parameters on component mount
   useEffect(() => {
-    const categoryParam = searchParams.get('category');
+    const categoryParam = searchParams.get("category");
     if (categoryParam) {
       setSelectedCategory(categoryParam);
     }
 
-    const searchParam = searchParams.get('search');
+    const searchParam = searchParams.get("search");
     if (searchParam) {
       setSearchQuery(searchParam);
     }
@@ -42,7 +43,7 @@ const InternshipExplorer = () => {
   };
 
   // Handle Internship Click
-  const handleInternshipClick = (internship:string) => {
+  const handleInternshipClick = (internship: string) => {
     router.push(`/internships/${generateSlug(internship.title)}`);
   };
 
@@ -112,7 +113,9 @@ const InternshipExplorer = () => {
     const matchesSearch =
       internship.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       internship.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      internship.skills.some((skill) => skill.toLowerCase().includes(searchQuery.toLowerCase()));
+      internship.skills.some((skill) =>
+        skill.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
     return matchesCategory && matchesSearch;
   });
@@ -121,8 +124,8 @@ const InternshipExplorer = () => {
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
     const url = new URL(window.location.href);
-    url.searchParams.set('category', categoryId);
-    window.history.pushState({}, '', url);
+    url.searchParams.set("category", categoryId);
+    window.history.pushState({}, "", url);
   };
 
   return (
@@ -134,7 +137,7 @@ const InternshipExplorer = () => {
           href="/"
           className="text-gray-600 hover:text-red-600 transition-colors"
         >
-          <House className="w-4 h-4"/>
+          <House className="w-4 h-4" />
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
         <span className="text-red-600 font-medium">Internships</span>
@@ -171,8 +174,8 @@ const InternshipExplorer = () => {
                   onClick={() => handleCategoryChange(category.id)}
                   className={`w-full text-left px-3 py-2 rounded-md flex justify-between items-center ${
                     selectedCategory === category.id
-                      ? 'bg-red-100 text-red-600'
-                      : 'hover:bg-gray-50'
+                      ? "bg-red-100 text-red-600"
+                      : "hover:bg-gray-50"
                   }`}
                 >
                   <span>{category.name}</span>
@@ -226,10 +229,10 @@ const InternshipExplorer = () => {
                         <div className="w-58 h-40 rounded-xl flex-shrink-0">
                           <img
                             src={internship.image}
-                            alt='banner'
+                            alt="banner"
                             className="w-full h-full object-contain rounded-xl"
                             onError={(e) => {
-                              e.target.src = '/placeholder-company.png';
+                              e.target.src = "/placeholder-company.png";
                             }}
                           />
                         </div>

@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, Wallet, Clock, ChevronRight } from "lucide-react";
+import { Search, House, Wallet, Clock, ChevronRight, ChevronDown, Users } from "lucide-react";
 import Link from "next/link";
 import courses from "@/app/(public)/courses/data";
+import { useSearchParams } from "next/navigation";
 const CourseExplorer = () => {
   const searchParams = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('all');

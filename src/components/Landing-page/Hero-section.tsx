@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -230,7 +229,7 @@ const HeroSection = () => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-full left-0 right-[88px] mt-2 bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200"
+                    className="absolute top-full left-0 right-[126px] mt-2 bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200"
                   >
                     {filteredResults.map((item, index) => (
                       <div

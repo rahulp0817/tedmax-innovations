@@ -12,9 +12,9 @@ const CourseSection = () => {
 
   const tabs = [
     "Popular Programs",
-    "Computer Science & Technology",
-    "Electrical & Electronics Engineering",
-    "Mechanical & Manufacturing Engineering",
+    "Computer Science",
+    "Electronics Courses",
+    "Mechanical & Manufacturing",
     "Business & Commerce",
   ];
 
@@ -24,14 +24,14 @@ const CourseSection = () => {
       image: "/CradImage.png",
       duration: "5hrs 45mins",
       price: "499",
-      categories: ["Computer Science & Technology", "Popular Programs"],
+      categories: ["Computer Science", "Popular Programs"],
     },
     {
       title: "Cybersecurity",
       image: "/CradImage.png",
       duration: "5 hrs of learning",
       price: "499",
-      categories: ["Computer Science & Technology", "Popular Programs"],
+      categories: ["Computer Science", "Popular Programs"],
     },
     {
       title: "Cloud Computing",
@@ -39,49 +39,49 @@ const CourseSection = () => {
       learners: "78.3k+",
       duration: "6 hrs of learning",
       price: "499",
-      categories: ["Computer Science & Technology", "Popular Programs"],
+      categories: ["Computer Science", "Popular Programs"],
     },
     {
       title: "Data Science",
       image: "/CradImage.png",
       duration: "12 hrs of learning",
       price: "499",
-      categories: ["Computer Science & Technology"],
+      categories: ["Computer Science"],
     },
     {
       title: "IoT",
       image: "/Images.jpg",
       duration: "8 hrs of learning",
       price: "499",
-      categories: ["Computer Science & Technology"],
+      categories: ["Computer Science"],
     },
     {
       title: "Augmented and Virtual Reality",
       image: "/Images.jpg",
       duration: "10 hrs of learning",
       price: "499",
-      categories: ["Computer Science & Technology"],
+      categories: ["Computer Science"],
     },
     {
       title: "Android Development",
       image: "/Images.jpg",
       duration: "7 hrs of learning",
       price: "499",
-      categories: ["Computer Science & Technology"],
+      categories: ["Computer Science"],
     },
     {
       title: "Web Development",
       image: "/Images.jpg",
       duration: "8 hrs of learning",
       price: "499",
-      categories: ["Computer Science & Technology"],
+      categories: ["Computer Science"],
     },
     {
       title: "Renewable Energy Systems",
       image: "/Images.jpg",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Electrical & Electronics Engineering"],
+      categories: ["Electronics Courses"],
     },
     {
       title: "Smart Grid Technology",
@@ -89,7 +89,7 @@ const CourseSection = () => {
       learners: "32.1k+",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Electrical & Electronics Engineering"],
+      categories: ["Electronics Courses"],
     },
     {
       title: "Electric Vehicles",
@@ -97,7 +97,7 @@ const CourseSection = () => {
       learners: "32.1k+",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Electrical & Electronics Engineering"],
+      categories: ["Electronics Courses"],
     },
     {
       title: "Embedded Systems",
@@ -105,7 +105,7 @@ const CourseSection = () => {
       learners: "32.1k+",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Electrical & Electronics Engineering"],
+      categories: ["Electronics Courses"],
     },
     {
       title: "Wireless Communication",
@@ -113,7 +113,7 @@ const CourseSection = () => {
       learners: "32.1k+",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Electrical & Electronics Engineering"],
+      categories: ["Electronics Courses"],
     },
     {
       title: "Robotics & Automation",
@@ -121,7 +121,7 @@ const CourseSection = () => {
       learners: "32.1k+",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Mechanical & Manufacturing Engineering"],
+      categories: ["Mechanical & Manufacturing"],
     },
     {
       title: "Additive Manufacturing",
@@ -129,7 +129,7 @@ const CourseSection = () => {
       learners: "32.1k+",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Mechanical & Manufacturing Engineering"],
+      categories: ["Mechanical & Manufacturing"],
     },
     {
       title: "Aerospace Engineering",
@@ -137,7 +137,7 @@ const CourseSection = () => {
       learners: "32.1k+",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Mechanical & Manufacturing Engineering"],
+      categories: ["Mechanical & Manufacturing"],
     },
     {
       title: "Advanced Material Engineering",
@@ -145,7 +145,7 @@ const CourseSection = () => {
       learners: "32.1k+",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Mechanical & Manufacturing Engineering"],
+      categories: ["Mechanical & Manufacturing"],
     },
     {
       title: "Mechatronics",
@@ -153,7 +153,7 @@ const CourseSection = () => {
       learners: "32.1k+",
       duration: "11 hrs of learning",
       price: "499",
-      categories: ["Mechanical & Manufacturing Engineering"],
+      categories: ["Mechanical & Manufacturing"],
     },
     {
       title: "Digital Marketing & E-Commerce",
