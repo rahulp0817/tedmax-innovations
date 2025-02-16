@@ -1,13 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import DashboardContent from './components/DashboardContent';
-import InternshipContent from './components/InternshipContent';
-import SettingsContent from './components/SettingsContent';
-import ExploreCoursesContent from './components/ExploreCoursesContent';
-import CoursePurchasePage from './components/CoursePurchasePage';
+import Sidebar from '../../app/dashboard/components/Sidebar';
+import Header from '../../app/dashboard/components/Header';
+import DashboardContent from '../../app/dashboard/components/DashboardContent';
+import InternshipContent from '../../app/dashboard/components/InternshipContent';
+import SettingsContent from '../../app/dashboard/components/SettingsContent';
+import ExploreCoursesContent from '../../app/dashboard/components/ExploreCoursesContent';
+import CoursePurchasePage from '../../app/dashboard/components/CoursePurchasePage'
 import { SearchProvider } from './contexts/SearchContext';
 
 export default function DashboardLayout({
