@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { User, LogOut, Settings, Book } from "lucide-react";
+import { User, LogOut, Settings, Book, Headset } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,6 @@ import {
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
 
 const ProfileDropdown = () => {
   const { data: session } = useSession();
@@ -30,9 +29,9 @@ const ProfileDropdown = () => {
       label: "My Courses",
     },
     {
-      href: "/settings",
-      icon: <Settings className="size-4" />,
-      label: "Settings",
+      href: "/support",
+      icon: <Headset className="size-4" />,
+      label: "Support",
     },
   ];
 

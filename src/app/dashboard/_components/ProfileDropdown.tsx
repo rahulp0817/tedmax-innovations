@@ -1,14 +1,13 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronDown, Home, User, Award, Briefcase } from 'lucide-react';
+import { ChevronDown, User, Award, Briefcase } from 'lucide-react';
 
 export default function ProfileDropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
 
     const navigationItems = [
-        { icon: <Home size={16} />, label: 'Home Page', route: '/' },
         { icon: <User size={16} />, label: 'Account', route: '/account' },
         { icon: <Award size={16} />, label: 'Certification', route: '/certification' },
         { icon: <Briefcase size={16} />, label: 'Applied Internship', route: '/internships' },

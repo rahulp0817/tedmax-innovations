@@ -4,9 +4,16 @@ import { Users, Clock, Star, Download, CheckCircle, ChevronDown, ChevronUp, Chev
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
-const CourseDetails = ({ course }) => {
+interface Course {
+  title: string;
+  image: string;
+  learners: number;
+  duration: string;
+}
+
+const CourseDetails = ({ course }: { course: Course }) => {
   const [activeSection, setActiveSection] = useState('overview');
-  const [expandedModules, setExpandedModules] = useState({});
+  const [expandedModules, setExpandedModules] = useState<{ [key: string]: boolean }>({});
 
   // Default course content structure
   const defaultContent = {
@@ -32,7 +39,7 @@ const CourseDetails = ({ course }) => {
 
   const currentContent = defaultContent;
 
-  const toggleModule = (moduleTitle) => {
+  const toggleModule = (moduleTitle: string) => {
     setExpandedModules(prev => ({
       ...prev,
       [moduleTitle]: !prev[moduleTitle]
