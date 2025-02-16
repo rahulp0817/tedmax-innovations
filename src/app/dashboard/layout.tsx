@@ -11,9 +11,9 @@ import CoursePurchasePage from './components/CoursePurchasePage';
 import { SearchProvider } from './contexts/SearchContext';
 
 export default function DashboardLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [activeTab, setActiveTab] = useState<'courses' | 'internship' | 'settings' | 'explore'>('courses');
@@ -34,9 +34,9 @@ export default function DashboardLayout({
         }
     }, [pathname]);
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
     const handleTabChange = (tab: 'courses' | 'internship' | 'settings' | 'explore') => {
         setActiveTab(tab);

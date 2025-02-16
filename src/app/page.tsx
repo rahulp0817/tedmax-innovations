@@ -6,6 +6,7 @@ import InternshipSection from "@/components/Landing-page/internship-categories";
 import FAQs from "@/components/Landing-page/FAQs";
 import LandingNavbar from "@/components/Landing-page/landing-navbar";
 import Promotesection from "@/components/Landing-page/promote-section";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -17,8 +18,9 @@ export default function Home() {
       <Reviews />
       <FAQs />
       <Promotesection />
+      <Footer />
       {/* <CatalogSection />
-      */}
+       */}
     </main>
   );
 }

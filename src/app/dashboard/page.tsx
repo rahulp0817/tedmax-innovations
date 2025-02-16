@@ -1,7 +1,7 @@
 // app/dashboard/page.tsx
-'use client';
-import DashboardContent from './components/DashboardContent';
+"use client";
+import DashboardContent from "./_components/DashboardContent";
 
 export default function DashboardPage() {
-    return <DashboardContent isSidebarOpen={true} />;
+  return <DashboardContent isSidebarOpen={true} />;
 }

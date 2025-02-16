@@ -61,7 +61,7 @@ const Footer = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <motion.div variants={itemVariants} className="flex flex-col">
             <div className="flex items-center gap-2 flex-shrink-0 cursor-pointer">
@@ -74,15 +74,12 @@ const Footer = () => {
                   priority
                 />
               </div>
-              <h3 className="text-2xl font-bold text-[var(--primary-color)] ">
-                TEDMAX
-              </h3>
+              <p className="text-gray-400 mt-4">
+                Empowering minds through quality education and innovative
+                learning experiences.
+              </p>
             </div>
-            <p className="text-gray-400 mb-6">
-              Empowering minds through quality education and innovative learning
-              experiences.
-            </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mt-6">
               {[
                 { icon: <Facebook />, href: "#" },
                 { icon: <Twitter />, href: "#" },

@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const PromoteSection = () => {
   const router = useRouter();
@@ -60,9 +61,11 @@ const PromoteSection = () => {
           </p>
         </motion.div>
         <motion.div variants={itemVariants}>
-          <Button onClick={() => router.push('\signup')} size={"lg"} className="bg-[#C1272D] hover:bg-[#A01F24]">
-            Join Now
-          </Button>
+          <Link href="/signup">
+            <Button size="lg" className="bg-[#C1272D] hover:bg-[#A01F24]">
+              Join Now
+            </Button>
+          </Link>
         </motion.div>
       </motion.div>
 

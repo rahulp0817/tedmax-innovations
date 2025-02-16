@@ -1,33 +1,41 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Users, Clock, MapPin, Wallet, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { internships } from '@/app/(public)/internships/data';
+"use client";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Search,
+  Users,
+  Clock,
+  MapPin,
+  Wallet,
+  House,
+  ChevronRight,
+} from "lucide-react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { internships } from "@/app/(public)/internships/data";
 
 const InternshipExplorer = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   // Read URL parameters on component mount
   useEffect(() => {
-    const categoryParam = searchParams.get('category');
+    const categoryParam = searchParams.get("category");
     if (categoryParam) {
       setSelectedCategory(categoryParam);
     }
 
-    const searchParam = searchParams.get('search');
+    const searchParam = searchParams.get("search");
     if (searchParam) {
       setSearchQuery(searchParam);
     }
   }, [searchParams]);
 
   // Generate URL-friendly slug
-  const generateSlug = (title) => {
+  const generateSlug = (title: string) => {
     return title
       .toLowerCase()
       .trim()
@@ -36,11 +44,10 @@ const InternshipExplorer = () => {
   };
 
   // Handle Internship Click
-  const handleInternshipClick = (internship:string) => {
+  const handleInternshipClick = (internship: { title: string }) => {
     router.push(`/internships/${generateSlug(internship.title)}`);
   };
 
-  // Calculate category counts dynamically - Updated to match first version
   const getCategoryCounts = () => ({
     all: internships.length,
     popular: internships.filter((internship) =>
@@ -106,17 +113,19 @@ const InternshipExplorer = () => {
     const matchesSearch =
       internship.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       internship.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      internship.skills.some((skill) => skill.toLowerCase().includes(searchQuery.toLowerCase()));
+      internship.skills.some((skill) =>
+        skill.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
     return matchesCategory && matchesSearch;
   });
 
   // Update URL when category changes
-  const handleCategoryChange = (categoryId) => {
+  const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
     const url = new URL(window.location.href);
-    url.searchParams.set('category', categoryId);
-    window.history.pushState({}, '', url);
+    url.searchParams.set("category", categoryId);
+    window.history.pushState({}, "", url);
   };
 
   return (
@@ -128,7 +137,7 @@ const InternshipExplorer = () => {
           href="/"
           className="text-gray-600 hover:text-red-600 transition-colors"
         >
-          Home
+          <House className="w-4 h-4" />
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
         <span className="text-red-600 font-medium">Internships</span>
@@ -143,7 +152,7 @@ const InternshipExplorer = () => {
           <input
             type="text"
             placeholder="Search internships..."
-            className="pl-10 pr-4 py-2 border rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="pl-10 pr-4 py-2 border rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-red-300"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -165,8 +174,8 @@ const InternshipExplorer = () => {
                   onClick={() => handleCategoryChange(category.id)}
                   className={`w-full text-left px-3 py-2 rounded-md flex justify-between items-center ${
                     selectedCategory === category.id
-                      ? 'bg-red-100 text-red-600'
-                      : 'hover:bg-gray-50'
+                      ? "bg-red-100 text-red-600"
+                      : "hover:bg-gray-50"
                   }`}
                 >
                   <span>{category.name}</span>
@@ -220,10 +229,10 @@ const InternshipExplorer = () => {
                         <div className="w-58 h-40 rounded-xl flex-shrink-0">
                           <img
                             src={internship.image}
-                            alt='banner'
+                            alt="banner"
                             className="w-full h-full object-contain rounded-xl"
                             onError={(e) => {
-                              e.target.src = '/placeholder-company.png';
+                              (e.target as HTMLImageElement).src = "/placeholder-company.png";
                             }}
                           />
                         </div>

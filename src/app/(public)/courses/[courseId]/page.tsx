@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useParams } from 'next/navigation';
-import CourseDetails from '@/app/(public)/course-description/course-details';
+import CourseDetails from '@/components/course-details';
 import courses from "@/app/(public)/courses/data"
 function Page() {
   const params = useParams();
