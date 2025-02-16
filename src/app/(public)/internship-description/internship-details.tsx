@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Users,
-  Clock,
+  CalendarDays,
   MapPin,
   Wallet,
   CheckCircle,
   ChevronRight,
   GraduationCap,
-  House
+  House,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -20,7 +20,16 @@ import {
 } from "@/components/ui/accordion";
 import Image from "next/image";
 
-const InternshipDetails = ({ internship }) => {
+interface Internship {
+  title: string;
+  image: string;
+  workType: string;
+  duration: string;
+  stipend: string;
+  learningOutcomes: string[];
+}
+
+const InternshipDetails = ({ internship }: { internship: Internship }) => {
 
   const defaultContent = {
     description: `This internship provides hands-on experience in ${internship?.title}. Gain real-world expertise through structured training and projects.`,
@@ -110,7 +119,7 @@ const InternshipDetails = ({ internship }) => {
                 Completion of Industrial Training
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5" />
+                <CalendarDays className="w-5 h-5" />
                 {internship?.duration}
               </div>
               <div className="flex items-center gap-2">
@@ -130,7 +139,7 @@ const InternshipDetails = ({ internship }) => {
       </motion.div>
 
       {/* About it */}
-      <div className="bg-white rounded-xl p-6 mb-8 gap-4">
+      <div className="bg-white rounded-xl p-0 mb-8 gap-4">
         <h2 className="text-2xl font-bold mb-6">About the Internship</h2>
         <p className="text-gray-500 line-clamp-5">
           {currentContent.description}
@@ -138,7 +147,7 @@ const InternshipDetails = ({ internship }) => {
       </div>
 
       {/* learning outcomes */}
-      <div className="bg-white rounded-xl p-6 mb-8 gap-4">
+      <div className="bg-white rounded-xl p-0 mb-8 gap-4">
         <h2 className="text-2xl font-bold mb-6">What you'll learn</h2>
         <ul className="space-y-3">
           {internship?.learningOutcomes?.map((outcome, index) => (
@@ -151,7 +160,7 @@ const InternshipDetails = ({ internship }) => {
       </div>
 
       {/* Internship certificate and Industrial certificate */}
-      <div className="bg-white p-6  mt-4">
+      <div className="bg-white p-0  mt-4">
         <div className="grid md:grid-cols-2 gap-48">
           {/* Left side - Certificate Info */}
           <motion.div

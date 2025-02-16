@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { User, LogOut, Settings, Book, Headset } from "lucide-react";
+import { User, LogOut, Book, Headset, Briefcase } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +27,11 @@ const ProfileDropdown = () => {
       href: "/dashboard",
       icon: <Book className="size-4" />,
       label: "My Courses",
+    },
+    {
+      href: "/applied-internship",
+      icon: <Briefcase className="size-4" />,
+      label: "Applied Internships",
     },
     {
       href: "/support",
@@ -82,16 +87,14 @@ const ProfileDropdown = () => {
           ))}
         </DropdownMenuGroup>
 
-        <DropdownMenuSeparator />
-
         <DropdownMenuItem
           onClick={() => {
             signOut();
           }}
-          className="hover:bg-slate-50 rounded-sm cursor-pointer pl-5 mb-3"
+          className="hover:bg-slate-50 rounded-sm cursor-pointer pl-5 mb-2 "
         >
           <span
-            className={`flex items-center gap-2 text-base transition-all duration-300 hover:text-red-500`}
+            className={`flex items-center gap-2 text-base transition-all duration-300 text-red-500 `}
           >
             <LogOut className="size-4" />
             Logout

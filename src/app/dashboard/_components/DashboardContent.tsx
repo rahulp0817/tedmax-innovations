@@ -51,7 +51,7 @@ export default function DashboardContent({
           <House className="w-4 h-4"/>
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
-        <span className="font-medium">My Courses</span>
+        <span className="font-medium text-gray-600">My Courses</span>
       </nav>
 
       <div

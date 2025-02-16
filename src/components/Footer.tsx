@@ -65,7 +65,7 @@ const Footer = () => {
           {/* Company Info */}
           <motion.div variants={itemVariants} className="flex flex-col">
             <div className=" flex items-center gap-2 mb-0 flex-shrink-0 cursor-pointer">
-              <div >
+              <div>
                 <Image
                   src="/logo.svg"
                   alt="logo"
@@ -84,7 +84,6 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               {[
-                { icon: <Facebook />, href: "#" },
                 { icon: <Twitter />, href: "#" },
                 {
                   icon: <Instagram />,
@@ -117,8 +116,8 @@ const Footer = () => {
             <ul className="space-y-3">
               {[
                 { name: "About Us", link: "/about" },
-                { name: "Courses", link: "/courses" },
-                { name: "Mentors", link: "/mentors" },
+                { name: "Courses", link: "/explore-courses" },
+                { name: "Internships", link: "/explore-internships" },
               ].map((item, index) => (
                 <motion.li
                   key={index}
