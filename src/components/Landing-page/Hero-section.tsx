@@ -140,7 +140,7 @@ const HeroSection = () => {
     const uniqueResults = combinedResults.filter(
       (item, index, self) =>
         index ===
-        self.findIndex((t) => t.title === item.title || t.name === item.name)
+        self.findIndex((t) => ('title' in t && t.title === item.title) || ('name' in t && 'name' in item && t.name === item.name))
     );
 
     setFilteredResults(uniqueResults);
@@ -148,7 +148,7 @@ const HeroSection = () => {
 
   const handleSearchFocus = () => {
     const navbarHeight = 80;
-    const offset = searchContainerRef.current.getBoundingClientRect().top + window.scrollY - navbarHeight;
+    const offset = searchContainerRef.current ? searchContainerRef.current.getBoundingClientRect().top + window.scrollY - navbarHeight : 0;
   
     window.scrollTo({
       top: offset,
@@ -157,13 +157,11 @@ const HeroSection = () => {
 
     setShowDropdown(true);
 
-    // Populate initial results with 4-5 courses and internships
     const initialCourses = courses.slice(0, 5).map((course) => ({
       ...course,
       type: "course",
     }));
 
-    // Combine initial results
     const initialResults = [...initialCourses];
 
     setFilteredResults(initialResults);
