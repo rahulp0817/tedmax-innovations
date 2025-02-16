@@ -29,10 +29,10 @@ const HeroSection = () => {
   const categories = [
     // { id: 'all', name: 'All Programs', count: 20 },
     // { id: 'popular', name: 'Popular Programs', count: 3 },
-    { id: "cs", name: "Computer Science & Technology", count: 8 },
-    { id: "ee", name: "Electrical & Electronics Engineering", count: 5 },
-    { id: "me", name: "Mechanical & Manufacturing Engineering", count: 5 },
-    { id: "business", name: "Business & Commerce", count: 2 },
+    { id: 'cs', name: 'Computer Science & Technology', count: 8 },
+    { id: 'ee', name: 'Electrical & Electronics Engineering', count: 5 },
+    { id: 'me', name: 'Mechanical & Manufacturing Engineering', count: 5 },
+    { id: 'business', name: 'Business & Commerce', count: 2 }
   ];
 
   const internshipCategories = [
@@ -148,11 +148,8 @@ const HeroSection = () => {
 
   const handleSearchFocus = () => {
     const navbarHeight = 80;
-    const offset =
-      searchContainerRef.current?.getBoundingClientRect().top ?? 0 +
-      window.scrollY -
-      navbarHeight;
-
+    const offset = searchContainerRef.current.getBoundingClientRect().top + window.scrollY - navbarHeight;
+  
     window.scrollTo({
       top: offset,
       behavior: "smooth",
@@ -312,44 +309,26 @@ const HeroSection = () => {
                         onClick={() => handleItemSelect(item)}
                         className={`
             p-4 hover:bg-gray-50 cursor-pointer transition-colors
-            ${
-              index !== filteredResults.length - 1
-                ? "border-b border-gray-100"
-                : ""
-            }
+            ${index !== filteredResults.length - 1 ? 'border-b border-gray-100' : ''}
           `}
                       >
-                        {item.type === "course" ? (
+                        {item.type === 'course' ? (
                           <div className="flex justify-between items-start">
                             <div>
-                              <div className="font-medium text-gray-900">
-                                {item.title}
-                              </div>
+                              <div className="font-medium text-gray-900">{item.title}</div>
                             </div>
                           </div>
-                        ) : item.type === "internship" ? (
+                        ) : item.type === 'internship' ? (
                           <div className="flex justify-between items-start">
                             <div>
-                              <div className="font-medium text-gray-900">
-                                {item.title}
-                              </div>
-                              <div className="text-sm text-gray-500 mt-1">
-                                {item.company}
-                              </div>
+                              <div className="font-medium text-gray-900">{item.title}</div>
+                              <div className="text-sm text-gray-500 mt-1">{item.company}</div>
                             </div>
                           </div>
                         ) : (
                           <div className="flex justify-between items-center">
-                            <span className="font-medium text-gray-900">
-                              {item.name}
-                            </span>
-                            <span className="text-sm text-gray-500">
-                              ({item.count}{" "}
-                              {item.type === "category"
-                                ? "courses"
-                                : "internships"}
-                              )
-                            </span>
+                            <span className="font-medium text-gray-900">{item.name}</span>
+                            <span className="text-sm text-gray-500">({item.count} {item.type === 'category' ? 'courses' : 'internships'})</span>
                           </div>
                         )}
                       </div>
