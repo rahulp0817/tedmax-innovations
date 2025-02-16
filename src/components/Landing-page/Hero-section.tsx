@@ -19,7 +19,7 @@ const HeroSection = () => {
 
   const categories = [
     // { id: 'all', name: 'All Programs', count: 20 },
-    // { id: 'popular', name: 'Popular Programs', count: 3 },
+    { id: 'popular', name: 'Popular Programs', count: 3 },
     { id: 'cs', name: 'Computer Science & Technology', count: 8 },
     { id: 'ee', name: 'Electrical & Electronics Engineering', count: 5 },
     { id: 'me', name: 'Mechanical & Manufacturing Engineering', count: 5 },
@@ -88,24 +88,24 @@ const HeroSection = () => {
   const handleSearchFocus = () => {
     const navbarHeight = 80;
     const offset = searchContainerRef.current.getBoundingClientRect().top + window.scrollY - navbarHeight;
-  
+
     window.scrollTo({
       top: offset,
       behavior: 'smooth',
       duration: 1000
     });
-  
+
     setShowDropdown(true);
-  
+
     // Populate initial results with 4-5 courses and internships
     const initialCourses = courses.slice(0, 5).map(course => ({
       ...course,
       type: 'course'
     }));
-  
+
     // Combine initial results
     const initialResults = [...initialCourses];
-  
+
     setFilteredResults(initialResults);
   };
 
@@ -232,36 +232,42 @@ const HeroSection = () => {
                     exit={{ opacity: 0, y: -10 }}
                     className="absolute top-full left-0 right-[88px] mt-2 bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200"
                   >
-                    {filteredResults.map((item, index) => (
-                      <div
-                        key={item.id || index}
-                        onClick={() => handleItemSelect(item)}
-                        className={`
-            p-4 hover:bg-gray-50 cursor-pointer transition-colors
-            ${index !== filteredResults.length - 1 ? 'border-b border-gray-100' : ''}
-          `}
-                      >
-                        {item.type === 'course' ? (
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <div className="font-medium text-gray-900">{item.title}</div>
+                    {filteredResults.length > 0 ? (
+                      filteredResults.map((item, index) => (
+                        <div
+                          key={item.id || index}
+                          onClick={() => handleItemSelect(item)}
+                          className={`
+              p-4 hover:bg-gray-50 cursor-pointer transition-colors
+              ${index !== filteredResults.length - 1 ? 'border-b border-gray-100' : ''}
+            `}
+                        >
+                          {item.type === 'course' ? (
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <div className="font-medium text-gray-900">{item.title}</div>
+                              </div>
                             </div>
-                          </div>
-                        ) : item.type === 'internship' ? (
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <div className="font-medium text-gray-900">{item.title}</div>
-                              <div className="text-sm text-gray-500 mt-1">{item.company}</div>
+                          ) : item.type === 'internship' ? (
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <div className="font-medium text-gray-900">{item.title}</div>
+                                <div className="text-sm text-gray-500 mt-1">{item.company}</div>
+                              </div>
                             </div>
-                          </div>
-                        ) : (
-                          <div className="flex justify-between items-center">
-                            <span className="font-medium text-gray-900">{item.name}</span>
-                            <span className="text-sm text-gray-500">({item.count} {item.type === 'category' ? 'courses' : 'internships'})</span>
-                          </div>
-                        )}
+                          ) : (
+                            <div className="flex justify-between items-center">
+                              <span className="font-medium text-gray-900">{item.name}</span>
+                              <span className="text-sm text-gray-500">({item.count} {item.type === 'category' ? 'courses' : 'internships'})</span>
+                            </div>
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="px-4 py-3 text-sm text-gray-500 text-center">
+                        No course or internship present. Explore other courses or internships!
                       </div>
-                    ))}
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>

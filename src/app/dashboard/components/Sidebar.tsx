@@ -1,6 +1,6 @@
 // app/dashboard/components/Sidebar.tsx
 'use client';
-import { Home, BookOpen, Settings, LogOut } from 'lucide-react';
+import { Home, BookOpen, Settings, LogOut, Compass } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -19,6 +19,7 @@ export default function Sidebar({ isOpen, onTabChange, activeTab }: SidebarProps
     const menuItems = [
         { icon: <Home size={20} />, label: 'My Courses', href: '/dashboard', tab: 'courses' },
         { icon: <BookOpen size={20} />, label: 'Internship', href: '/dashboard/internship', tab: 'internship' },
+        { icon: <Compass size={20} />, label: 'Explore Courses', href: '/dashboard/explore', tab: 'explore' },
     ];
     
     const bottomMenuItems = [
@@ -54,7 +55,9 @@ export default function Sidebar({ isOpen, onTabChange, activeTab }: SidebarProps
                                     activeTab === item.tab ? 'bg-gray-100' : ''
                                 }`}
                             >
-                                {item.icon}
+                                <div className={`flex ${isOpen ? '' : 'justify-center w-full'}`}>
+                                    {item.icon}
+                                </div>
                                 {isOpen && <span className="ml-4">{item.label}</span>}
                             </div>
                         ))}
@@ -77,7 +80,9 @@ export default function Sidebar({ isOpen, onTabChange, activeTab }: SidebarProps
                                     activeTab === item.tab ? 'bg-gray-100' : ''
                                 }`}
                             >
-                                {item.icon}
+                                <div className={`flex ${isOpen ? '' : 'justify-center w-full'}`}>
+                                    {item.icon}
+                                </div>
                                 {isOpen && <span className="ml-4">{item.label}</span>}
                             </div>
                         ))}
