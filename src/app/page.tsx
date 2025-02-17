@@ -1,7 +1,6 @@
 import HeroSection from "@/components/Landing-page/Hero-section";
 import { Reviews } from "@/components/Landing-page/Reviews-students";
 import CourseSection from "@/components/Landing-page/course-categories";
-import CatalogSection from "@/components/Landing-page/course-catlog";
 import InternshipSection from "@/components/Landing-page/internship-categories";
 import FAQs from "@/components/Landing-page/FAQs";
 import LandingNavbar from "@/components/Landing-page/landing-navbar";
@@ -19,8 +18,6 @@ export default function Home() {
       <FAQs />
       <Promotesection />
       <Footer />
-      {/* <CatalogSection />
-       */}
     </main>
   );
 }

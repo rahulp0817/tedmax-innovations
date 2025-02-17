@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Users, Clock, ArrowRight, Wallet } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const CourseSection = () => {
   const router = useRouter();
@@ -369,9 +370,7 @@ const CourseSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <motion.button
-          onClick={() => router.push("/explore-courses")}
-          className="group border border-[var(--primary-color)] text-[var(--primary-color)] px-6 py-3 rounded-lg font-medium hover:bg-red-100 transition-colors inline-flex items-center"
+        <motion.div
           whileHover={{
             scale: 1.05,
             transition: {
@@ -381,20 +380,25 @@ const CourseSection = () => {
           }}
           whileTap={{ scale: 0.95 }}
         >
-          Explore Courses
-          <motion.span
-            className="inline-block ml-2"
-            initial={{ x: 0 }}
-            animate={{ x: 5 }}
-            transition={{
-              duration: 0.8,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
+          <Link
+            href="/explore-courses"
+            className="group border border-[var(--primary-color)] text-[var(--primary-color)] px-6 py-3 rounded-lg font-medium hover:bg-red-100 transition-colors inline-flex items-center"
           >
-            <ArrowRight className="w-5 h-5" />
-          </motion.span>
-        </motion.button>
+            Explore Courses
+            <motion.span
+              className="inline-block ml-2"
+              initial={{ x: 0 }}
+              animate={{ x: 5 }}
+              transition={{
+                duration: 0.8,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            >
+              <ArrowRight className="w-5 h-5" />
+            </motion.span>
+          </Link>
+        </motion.div>
       </motion.div>
     </div>
   );
