@@ -106,49 +106,6 @@ model UserPurchases {
   @@id([userId, courseId])
 }
 
-model VideoMetadata {
-  id                         Int             @id @default(autoincrement())
-  contentId                  Int
-  video_1080p_mp4_1          String? // Link to 1080p mp4 quality video variant 1
-  video_1080p_mp4_2          String? // Link to 1080p mp4 quality video variant 2
-  video_1080p_mp4_3          String? // Link to 1080p mp4 quality video variant 3
-  video_1080p_mp4_4          String? // Link to 1080p mp4 quality video variant 4
-  video_1080p_1              String? // Link to 1080p quality video variant 1
-  video_1080p_2              String? // Link to 1080p quality video variant 2
-  video_1080p_3              String? // Link to 1080p quality video variant 3
-  video_1080p_4              String? // Link to 1080p quality video variant 4
-  video_720p_mp4_1           String? // Link to 720p mp4 quality video variant 1
-  video_720p_mp4_2           String? // Link to 720p mp4 quality video variant 2
-  video_720p_mp4_3           String? // Link to 720p mp4 quality video variant 3
-  video_720p_mp4_4           String? // Link to 720p mp4 quality video variant 4
-  video_720p_1               String? // Link to 720p quality video variant 1
-  video_720p_2               String? // Link to 720p quality video variant 2
-  video_720p_3               String? // Link to 720p quality video variant 3
-  video_720p_4               String? // Link to 720p quality video variant 4
-  video_360p_mp4_1           String? // Link to 360p mp4 quality video variant 1
-  video_360p_mp4_2           String? // Link to 360p mp4 quality video variant 2
-  video_360p_mp4_3           String? // Link to 360p mp4 quality video variant 3
-  video_360p_mp4_4           String? // Link to 360p mp4 quality video variant 4
-  video_360p_1               String? // Link to 360p quality video variant 1
-  video_360p_2               String? // Link to 360p quality video variant 2
-  video_360p_3               String? // Link to 360p quality video variant 3
-  video_360p_4               String? // Link to 360p quality video variant 4
-  subtitles                  String? // Link to subtitles file
-  subtitle_tried             Int             @default(0) //Count of subtitle transcoding tries
-  segments                   Json?
-  content                    Content         @relation(fields: [contentId], references: [id])
-  slides                     String? // link to slides
-  thumbnail_mosiac_url       String?
-  duration                   Int?
-  migration_pickup_time      DateTime?
-  migrated_video_1080p_mp4_1 String?
-  migrated_video_360p_mp4_1  String?
-  migrated_video_720p_mp4_1  String?
-  original_mp4_url           String?
-  transcoded                 Boolean         @default(false)
-
-  @@unique([contentId])
-}
 
 model UpiId {
   id     Int    @id @default(autoincrement())
@@ -184,7 +141,6 @@ model Content {
   videoProgress    VideoProgress[]
   children         Content[]       @relation("ContentToContent")
   createdAt        DateTime        @default(now())
-  VideoMetadata    VideoMetadata?
 }
 
 enum PaymentStatus {

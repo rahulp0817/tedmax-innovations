@@ -3,12 +3,14 @@ import { Lato } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/sonner";
-import { siteConfig } from "@/config/site-config";
 import NextTopLoader from "nextjs-toploader";
 
 const inter = Lato({ subsets: ["latin"], weight: ["400"] });
 
-export const metadata: Metadata = siteConfig;
+export const metadata: Metadata = {
+  title: "Tedmax",
+  description: "Education platform",
+};
 
 export default function RootLayout({
   children,

@@ -45,12 +45,6 @@ export default function Sidebar({
       href: "/dashboard/internship",
       tab: "internship",
     },
-    {
-      icon: <Compass size={20} />,
-      label: "Explore Courses",
-      href: "/dashboard/explore",
-      tab: "explore",
-    },
   ];
 
   const bottomMenuItems = [
@@ -168,3 +162,5 @@ export default function Sidebar({
     </aside>
   );
 }
+
+//http://localhost:3000/dashboard/course/1
