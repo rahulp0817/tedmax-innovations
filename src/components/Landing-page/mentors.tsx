@@ -1,127 +1,172 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { MapPin, CalendarDays, Wallet, ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { internships } from "@/app/(public)/internships/data";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // Correct import for Next.js app router
+import { MapPin, Users, Briefcase, ArrowRight } from "lucide-react";
 
 const Mentors = () => {
   const router = useRouter();
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
-  // Function to generate URL-friendly slug
-  const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  };
+  interface Mentor {
+    id: number;
+    name: string;
+    profession: string;
+    university: string;
+    imageUrl: string;
+    experience?: string;
+    specialization?: string;
+  }
 
-  const popularInternships = internships.filter(
-    (internship) =>
-      Array.isArray(internship.category) &&
-      internship.category.includes("Popular Internships")
-  );
+  const mentorsData: Mentor[] = [
+    {
+      id: 1,
+      name: "John Doe",
+      profession: "Software Engineer",
+      university: "MIT",
+      imageUrl: "/default-avatar.jpg",
+      experience: "8+ years",
+      specialization: "Full Stack Development",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      profession: "Data Scientist",
+      university: "Stanford",
+      imageUrl: "/default-avatar.jpg",
+      experience: "6+ years",
+      specialization: "Machine Learning",
+    },
+    {
+      id: 3,
+      name: "John Doe",
+      profession: "Software Engineer",
+      university: "MIT",
+      imageUrl: "/default-avatar.jpg",
+      experience: "8+ years",
+      specialization: "Full Stack Development",
+    },
+    {
+      id: 4,
+      name: "Jane Smith",
+      profession: "Data Scientist",
+      university: "Stanford",
+      imageUrl: "/default-avatar.jpg",
+      experience: "6+ years",
+      specialization: "Machine Learning",
+    },
+  ];
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 mb-32">
-      {/* Header */}
+      {/* Header Section */}
       <motion.div
-        className="mb-12 text-center"
-        initial={{ opacity: 0, y: -20 }}
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <motion.span
-          className="text-sm font-medium"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
+        <motion.div
+          className="mb-12 text-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          MENTORS
-        </motion.span>
-        <motion.h2
-          className="text-3xl font-bold mt-2"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          Learn from our {" "}
-          <span className="text-red-600">expert mentors</span>
-        </motion.h2>
+          <motion.span
+            className="text-sm font-medium"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            MENTORS
+          </motion.span>
+          <motion.h2
+            className="text-3xl font-bold mt-2"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+          >
+            Learn from our{" "}
+            <span className="text-red-600">Industry Experts</span>
+          </motion.h2>
+        </motion.div>
       </motion.div>
 
-      {/* Internship Grid */}
-      <div className="w-full">
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
-          layout
-        >
-          <AnimatePresence mode="wait">
-            {popularInternships.map((internship, index) => (
-              <motion.div
-                key={internship.title}
-                className="w-full bg-white rounded-xl overflow-hidden shadow cursor-pointer hover:shadow-lg"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{
+      {/* Mentors Grid */}
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6"
+        layout
+      >
+        <AnimatePresence mode="popLayout">
+          {mentorsData.slice(0, 4).map((mentor, index) => (
+            <motion.div
+              key={mentor.id}
+              className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
                   opacity: 1,
                   y: 0,
                   transition: { duration: 0.5, delay: index * 0.1 },
-                }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { duration: 0.3 },
-                }}
-                onClick={() =>
-                  router.push(`/internships/${generateSlug(internship.title)}`)
-                }
+                },
+              }}
+              initial="hidden"
+              animate="visible"
+              whileHover={{ y: -8 }}
+              onHoverStart={() => setHoveredCard(mentor.id)}
+              onHoverEnd={() => setHoveredCard(null)}
+            >
+              <Link
+                href={`/mentors/${mentor.name
+                  .toLowerCase()
+                  .replace(/ /g, "-")}`}
               >
-                <motion.div className="p-4 rounded-xl">
-                  {/* Company Logo and Info */}
-                  <div className="items-start gap-4 mb-4">
-                    <div className="w-58 h-40 rounded-xl flex-shrink-0">
+                <div className="p-6">
+                  {/* Mentor Image */}
+                  <div className="relative mb-4">
+                    <div className="w-24 h-24 mx-auto mb-4">
                       <img
-                        src={internship.image || "/placeholder-company.png"}
-                        alt={internship.company}
-                        className="w-full h-full object-contain rounded-xl"
-                        onError={(e) => {
-                          e.currentTarget.src = "/placeholder-company.png";
-                        }}
+                        src={mentor.imageUrl}
+                        alt={mentor.name}
+                        className="w-full h-full object-cover rounded-full border-4 border-gray-50"
                       />
                     </div>
-                    <div>
-                      <motion.h3 className="text-md font-semibold text-gray-900 mb-1 mt-2 line-clamp-2 h-12">
-                        {internship.title}
-                      </motion.h3>
-                    </div>
                   </div>
 
-                  {/* Internship Details */}
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <MapPin className="w-4 h-4" />
-                      <span className="text-sm">{internship.workType}</span>
+                  {/* Mentor Info */}
+                  <div className="text-center mb-4">
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">
+                      {mentor.name}
+                    </h3>
+                    <p className="text-red-600 font-medium mb-2">
+                      {mentor.specialization}
+                    </p>
+                  </div>
+
+                  {/* Details */}
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Briefcase className="w-4 h-4 text-gray-400" />
+                      <span>{mentor.profession}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <Wallet className="w-4 h-4" />
-                      <span className="text-sm">{internship.stipend}</span>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-gray-400" />
+                      <span>{mentor.university}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <CalendarDays className="w-4 h-4" />
-                      <span className="text-sm">{internship.duration}</span>
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4 text-gray-400" />
+                      <span>{mentor.experience} experience</span>
                     </div>
                   </div>
-                </motion.div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
 
-      {/* View All Internships Button */}
+      {/* Explore Mentors Button */}
       <motion.div
         className="mt-12 text-center"
         initial={{ opacity: 0, y: 20 }}
@@ -131,10 +176,7 @@ const Mentors = () => {
         <motion.div
           whileHover={{
             scale: 1.05,
-            transition: {
-              duration: 0.2,
-              ease: "easeInOut",
-            },
+            transition: { duration: 0.2, ease: "easeInOut" },
           }}
           whileTap={{ scale: 0.95 }}
         >

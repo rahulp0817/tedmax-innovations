@@ -308,7 +308,7 @@ const CourseSection = () => {
           layout
         >
           <AnimatePresence mode="wait">
-            {displayedCourses.map((course, index) => (
+            {displayedCourses.slice(0,4).map((course, index) => (
               <motion.div
                 key={course.title}
                 className="w-full p-4 space-y-2 bg-white rounded-xl overflow-hidden cursor-pointer hover:shadow-lg shadow "

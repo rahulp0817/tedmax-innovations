@@ -60,7 +60,7 @@ const InternshipSection = () => {
           layout
         >
           <AnimatePresence mode="wait">
-            {popularInternships.map((internship, index) => (
+            {popularInternships.slice(0, 4).map((internship, index) => (
               <motion.div
                 key={internship.title}
                 className="w-full bg-white rounded-xl overflow-hidden shadow cursor-pointer hover:shadow-lg"
