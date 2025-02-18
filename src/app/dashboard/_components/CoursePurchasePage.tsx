@@ -14,7 +14,7 @@ const CoursePurchasePage = ({ courseId }: { courseId: string }) => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto p-6">
+        <div className="max-w-6xl mx-auto p-6">
             {/* Back Button */}
             <button
                 onClick={() => router.back()}

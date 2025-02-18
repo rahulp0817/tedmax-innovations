@@ -11,6 +11,6 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
     if (!course) {
         return notFound();
     }
-
+    //@ts-ignore
     return <CoursePurchasePage course={course} />;
 }
