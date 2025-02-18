@@ -63,7 +63,7 @@ const Brands = () => {
           </span>
           <span className="text-[var(--primary-color)]">
             {" "}
-            Recognized Platform
+            Recognized Platforms
           </span>
         </motion.h1>
       </motion.div>
