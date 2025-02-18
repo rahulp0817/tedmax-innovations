@@ -1,5 +1,6 @@
 // app/dashboard/components/InternshipCard.tsx
 import { Play, Calendar } from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 interface InternshipCardProps {
   title: string;
@@ -16,6 +17,11 @@ export default function InternshipCard({
   image,
   color,
 }: InternshipCardProps) {
+  const router = useRouter();
+
+  const handleCertificateClaim = () => {
+    router.push(`/dashboard/certificate?course=${encodeURIComponent(title)}`);
+  };
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className={`relative h-40 ${color}`}>
@@ -57,13 +63,16 @@ export default function InternshipCard({
       </div>
       <div className="p-3">
         <h3 className="font-semibold text-base">{title}</h3>
-        <p className="text-gray-500 text-sm mt-2 flex items-center gap-2"><Calendar className="w-4 h-4"/> {duration}</p>
+        <p className="text-gray-500 text-sm mt-2 flex items-center gap-2"><Calendar className="w-4 h-4" /> {duration}</p>
         <div className="mt-4 flex gap-2">
           <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-1 text-sm">
             <Play size={14} /> View Internship
           </button>
           {progress === 100 && (
-            <button className="flex-1 bg-blue-100 text-blue-700 py-2 text-sm rounded-lg hover:bg-blue-200">
+            <button
+              onClick={handleCertificateClaim}
+              className="flex-1 bg-blue-100 text-blue-700 py-1.5 text-sm rounded-lg hover:bg-blue-200"
+            >
               Claim Certificate
             </button>
           )}

@@ -191,7 +191,7 @@ const CourseSection = () => {
     const courseSlug = course.title
       .toLowerCase()
       .replace(/[^a-zA-Z0-9]+/g, "-");
-    router.push(`/courses/${courseSlug}`);
+    router.push(`/explore-courses/${courseSlug}`);
   };
 
   const displayedCourses = showAll

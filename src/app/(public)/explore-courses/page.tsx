@@ -19,7 +19,7 @@ const CourseExplorer = () => {
     if (categoryParam) {
       setSelectedCategory(categoryParam);
     }
-    
+
     const searchParam = searchParams.get('search');
     if (searchParam) {
       setSearchQuery(searchParam);
@@ -56,9 +56,9 @@ const CourseExplorer = () => {
   ];
 
   const displayedCourses = courses.filter(course => {
-    const matchesCategory = selectedCategory === 'all' || 
-      (Array.isArray(course.category) ? 
-        course.category.includes(selectedCategory) : 
+    const matchesCategory = selectedCategory === 'all' ||
+      (Array.isArray(course.category) ?
+        course.category.includes(selectedCategory) :
         course.category === selectedCategory);
     const matchesDifficulty = selectedDifficulty === 'all' || course.difficulty === selectedDifficulty;
     const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -81,12 +81,12 @@ const CourseExplorer = () => {
           href="/"
           className="text-gray-600 hover:text-red-600 transition-colors"
         >
-         <House className="w-4 h-4"/>
+          <House className="w-4 h-4" />
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
         <span className="text-gray-500 font-medium">Courses</span>
       </nav>
-      
+
       <div className="flex justify-between items-center mb-8 sticky top-0 bg-white z-10 py-4">
         <h1 className="text-4xl font-bold text-red-600">Discover Our Courses</h1>
         <div className="flex gap-4 items-center">
@@ -100,7 +100,7 @@ const CourseExplorer = () => {
             />
             <Search className="absolute left-3 top-3 text-gray-400" size={20} />
           </div>
-          
+
           {/* Difficulty Dropdown */}
           <div className="relative">
             <button
@@ -112,7 +112,7 @@ const CourseExplorer = () => {
               </span>
               <ChevronDown size={16} className={`transform transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
-            
+
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-20">
                 {difficulties.map(difficulty => (
@@ -122,9 +122,8 @@ const CourseExplorer = () => {
                       setSelectedDifficulty(difficulty.id);
                       setIsDropdownOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2 hover:bg-gray-50 ${
-                      selectedDifficulty === difficulty.id ? 'bg-red-50 text-red-600' : ''
-                    }`}
+                    className={`w-full text-left px-4 py-2 hover:bg-gray-50 ${selectedDifficulty === difficulty.id ? 'bg-red-50 text-red-600' : ''
+                      }`}
                   >
                     {difficulty.name}
                   </button>
@@ -146,11 +145,10 @@ const CourseExplorer = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleCategoryChange(category.id)}
-                  className={`w-full text-left px-3 py-2 rounded-md flex justify-between items-center ${
-                    selectedCategory === category.id
+                  className={`w-full text-left px-3 py-2 rounded-md flex justify-between items-center ${selectedCategory === category.id
                       ? 'bg-red-100 text-red-600'
                       : 'hover:bg-gray-50'
-                  }`}
+                    }`}
                 >
                   <span>{category.name}</span>
                   <span className="text-sm text-gray-500">({getCategoryCount(category.id)})</span>
@@ -191,7 +189,7 @@ const CourseExplorer = () => {
                   layout
                 >
                   <Link
-                    href={`/courses/${generateSlug(course.title)}`}
+                    href={`/explore-courses/${generateSlug(course.title)}`}
                     className="block h-full"
                   >
                     <motion.div className="p-4 rounded-xl">

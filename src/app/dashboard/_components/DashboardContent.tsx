@@ -1,7 +1,8 @@
-// app/dashboard/components/DashboardContent.tsx
-import CourseCard from "./CourseCard";
+import React from 'react';
+import { CourseCard } from "./CourseCard";
 import { ChevronRight, House } from "lucide-react";
 import Link from "next/link";
+import courses from '@/app/(public)/courses/data';
 
 interface DashboardContentProps {
   isSidebarOpen: boolean;
@@ -10,33 +11,26 @@ interface DashboardContentProps {
 export default function DashboardContent({
   isSidebarOpen,
 }: DashboardContentProps) {
-  const courses = [
+  // Combine the course data with dashboard-specific properties
+  const dashboardCourses = [
     {
-      title: "Mobile Dev React Native",
-      duration: "4hrs 22min",
+      ...courses[0], // Spread the existing course data
       progress: 22,
-      image: "/CradImage.png",
       color: "bg-green-500",
     },
     {
-      title: "UI Design for Beginners",
-      duration: "4hrs 22min",
+      ...courses[5],
       progress: 22,
-      image: "/CradImage.png",
       color: "bg-red-500",
     },
     {
-      title: "Website Dev Zero to Hero",
-      duration: "4hrs 22min",
+      ...courses[2],
       progress: 10,
-      image: "/CradImage.png",
       color: "bg-purple-500",
     },
     {
-      title: "Vue JavaScript Course",
-      duration: "4hrs 22min",
+      ...courses[3],
       progress: 100,
-      image: "/CradImage.png",
       color: "bg-orange-500",
     },
   ];
@@ -48,19 +42,26 @@ export default function DashboardContent({
           href="/"
           className="text-gray-500 hover:text-red-600 transition-colors"
         >
-          <House className="w-4 h-4"/>
+          <House className="w-4 h-4" />
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
         <span className="font-medium text-gray-600">My Courses</span>
       </nav>
 
       <div
-        className={`grid grid-cols-1 sm:grid-cols-2 ${
-          isSidebarOpen ? "lg:grid-cols-3" : "lg:grid-cols-4"
-        } gap-6`}
+        className={`grid grid-cols-1 sm:grid-cols-2 ${isSidebarOpen ? "lg:grid-cols-3" : "lg:grid-cols-4"
+          } gap-6`}
       >
-        {courses.map((course, index) => (
-          <CourseCard key={index} {...course} />
+        {dashboardCourses.map((course) => (
+          <CourseCard
+            key={course.id}
+            // id={course.id}
+            title={course.title}
+            duration={course.duration}
+            progress={course.progress || 0}
+            image={course.image}
+            color={course.color || "bg-blue-500"}
+          />
         ))}
       </div>
     </div>

@@ -1,5 +1,8 @@
 // app/dashboard/components/CourseCard.tsx
 import { Play, Clock } from "lucide-react";
+import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface CourseCardProps {
   title: string;
@@ -9,13 +12,22 @@ interface CourseCardProps {
   color: string;
 }
 
-export default function CourseCard({
+export const CourseCard: React.FC<CourseCardProps> = ({
   title,
   duration,
   progress,
   image,
   color,
-}: CourseCardProps) {
+}) => {
+  const router = useRouter();
+
+  const handleCertificateClaim = () => {
+    router.push(`/dashboard/certificate?course=${encodeURIComponent(title)}`);
+  };
+
+  const generateSlug = (title: string) => {
+    return title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
+  };
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden border ">
       <div className={`relative h-40 ${color}`}>
@@ -57,13 +69,19 @@ export default function CourseCard({
       </div>
       <div className="p-3">
         <h3 className="font-semibold text-base">{title}</h3>
-        <p className="text-gray-500 text-sm mt-2 flex items-center gap-2"><Clock className="w-4 h-4"/> {duration}</p>
+        <p className="text-gray-500 text-sm mt-2 flex items-center gap-2"><Clock className="w-4 h-4" /> {duration}</p>
         <div className="mt-4 flex gap-2">
-          <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm">
+          <Link
+            href={`/explore-courses/${generateSlug(title)}`}
+            className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm"
+          >
             <Play size={14} /> View Course
-          </button>
+          </Link>
           {progress === 100 && (
-            <button className="flex-1 bg-blue-100 text-blue-700 py-1.5 text-sm rounded-lg hover:bg-blue-200">
+            <button
+              onClick={handleCertificateClaim}
+              className="flex-1 bg-blue-100 text-blue-700 py-1.5 text-sm rounded-lg hover:bg-blue-200"
+            >
               Claim Certificate
             </button>
           )}
