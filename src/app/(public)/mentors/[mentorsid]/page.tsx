@@ -1,69 +1,97 @@
 "use client";
 
-// Sample data for mentors
-const mentorsData: Mentor[] = [
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { 
+  Instagram, 
+  Facebook, 
+  Linkedin, 
+  Github,
+  Building2,
+  GraduationCap
+} from "lucide-react";
+
+// Define mentor data structure
+const mentorsData = [
   {
     id: 1,
     name: "John Doe",
     profession: "Software Engineer",
     university: "MIT",
-    imageUrl: "/images/john-doe.jpg",
-    experience: "5 years",
-    rating: 4.5,
-    specialization: "Web Development",
-    bio: "John is a seasoned software engineer with a passion for teaching.",
-    expertise: ["JavaScript", "React", "Node.js"],
-    achievements: ["Published 3 books", "Speaker at 10+ conferences"],
-    availability: {
-      days: "Monday to Friday",
-      hours: "9 AM to 5 PM",
-    },
-    sessionsCompleted: 100,
-    studentsHelped: 200,
+    imageUrl: "/default-avatar.jpg",
+    experience: "8+ years",
+    specialization: "Full Stack Development",
+    about: "A seasoned software engineer with expertise in full stack development. Passionate about teaching and mentoring aspiring developers.",
+    languages: ["JavaScript", "Python", "Java", "C++"],
+    workExperience: [
+      {
+        company: "Google",
+        period: "2018 - Present",
+        role: "Senior Software Engineer"
+      },
+      {
+        company: "Microsoft",
+        period: "2015 - 2018",
+        role: "Software Engineer"
+      }
+    ],
+    socialLinks: {
+      instagram: "#",
+      facebook: "#",
+      linkedin: "#",
+      github: "#"
+    }
   },
-  // Add more mentor objects as needed
+  {
+    id: 2,
+    name: "Jane Smith",
+    profession: "Data Scientist",
+    university: "Stanford",
+    imageUrl: "/default-avatar.jpg",
+    experience: "6+ years",
+    specialization: "Machine Learning",
+    about: "Expert data scientist with focus on machine learning and AI. Experienced in building and deploying ML models at scale.",
+    languages: ["Python", "R", "SQL", "TypeScript"],
+    workExperience: [
+      {
+        company: "Amazon",
+        period: "2019 - Present",
+        role: "Senior Data Scientist"
+      },
+      {
+        company: "Facebook",
+        period: "2016 - 2019",
+        role: "Data Scientist"
+      }
+    ],
+    socialLinks: {
+      instagram: "#",
+      facebook: "#",
+      linkedin: "#",
+      github: "#"
+    }
+  }
 ];
 
-import React from "react";
-import { motion } from "framer-motion";
-import {
-  ArrowLeft,
-  Calendar,
-  Clock,
-  MapPin,
-  Star,
-  Users,
-  Briefcase,
-  GraduationCap,
-  Award,
-  MessageCircle,
-} from "lucide-react";
-import Link from "next/link";
-
-// This would typically come from your database/API
-type Mentor = {
-  id: number;
-  name: string;
-  profession: string;
-  university: string;
-  imageUrl: string;
-  experience: string;
-  rating: number;
-  specialization: string;
-  bio: string;
-  expertise: string[];
-  achievements: string[];
-  availability: {
-    days: string;
-    hours: string;
-  };
-  sessionsCompleted: number;
-  studentsHelped: number;
+// Color mapping for language badges
+const languageColors: { [key: string]: string } = {
+  JavaScript: "bg-yellow-400",
+  Python: "bg-purple-500",
+  Java: "bg-red-500",
+  "C++": "bg-blue-600",
+  TypeScript: "bg-green-500",
+  R: "bg-teal-500",
+  SQL: "bg-pink-500",
+  NodeJS: "bg-teal-500",
+  "C#": "bg-purple-600"
 };
 
-
-export default function MentorProfile({ params }: { params: { slug: string } }) {
-  const mentor = mentorsData.find((mentor) => mentor.name.toLowerCase().replace(/ /g, "-") === params.slug);
+export default function InstructorProfile({ params }: { params: { mentorsid: string } }) {
+  // Find mentor by URL slug
+  const mentor = mentorsData.find(
+    (m) => m.name.toLowerCase().replace(/ /g, "-") === params.mentorsid
+  );
 
   if (!mentor) {
     return (
@@ -79,131 +107,94 @@ export default function MentorProfile({ params }: { params: { slug: string } }) 
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Back Button */}
-        <Link
-          href="/mentors"
-          className="inline-flex items-center text-gray-600 hover:text-red-600 mb-8 group"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />
-          Back to Mentors
-        </Link>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section with Background */}
+      <div className="relative h-[300px] bg-gradient-to-r from-teal-900 to-teal-700">
+        {/* Profile Image */}
+        <div className="absolute -bottom-20 left-16">
+          <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-white">
+            <img
+              src={mentor.imageUrl}
+              alt={mentor.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Left Column - Profile Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="md:col-span-1"
-          >
-            <div className="bg-white rounded-xl shadow-md p-6 sticky top-8">
-              <div className="text-center mb-6">
-                <div className="relative inline-block">
-                  <img
-                    src={mentor.imageUrl}
-                    alt={mentor.name}
-                    className="w-32 h-32 rounded-full border-4 border-gray-50 mb-4"
-                  />
-                  <span className="absolute top-0 right-0 bg-yellow-400 text-white px-2 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-                    <Star className="w-4 h-4" />
-                    {mentor.rating}
-                  </span>
-                </div>
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">{mentor.name}</h1>
-                <p className="text-red-600 font-medium">{mentor.specialization}</p>
-              </div>
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+        {/* Mentor Name and Social Links */}
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            {mentor.name}
+          </h1>
+          <p className="text-gray-600 mb-4">{mentor.specialization}</p>
+          <div className="flex gap-2">
+            <Link href={mentor.socialLinks.instagram} className="text-pink-500 hover:text-pink-600">
+              <Instagram size={20} />
+            </Link>
+            <Link href={mentor.socialLinks.facebook} className="text-blue-600 hover:text-blue-700">
+              <Facebook size={20} />
+            </Link>
+            <Link href={mentor.socialLinks.linkedin} className="text-blue-500 hover:text-blue-600">
+              <Linkedin size={20} />
+            </Link>
+            <Link href={mentor.socialLinks.github} className="text-gray-800 hover:text-gray-900">
+              <Github size={20} />
+            </Link>
+          </div>
+        </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-gray-600">
-                  <Briefcase className="w-5 h-5" />
-                  <span>{mentor.profession}</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-600">
-                  <MapPin className="w-5 h-5" />
-                  <span>{mentor.university}</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-600">
-                  <Users className="w-5 h-5" />
-                  <span>{mentor.experience} experience</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-600">
-                  <Calendar className="w-5 h-5" />
-                  <span>{mentor.availability.days}</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-600">
-                  <Clock className="w-5 h-5" />
-                  <span>{mentor.availability.hours}</span>
-                </div>
-              </div>
+        {/* About Section */}
+        <div className="mb-12">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">About Instructor</h2>
+          <p className="text-gray-600 leading-relaxed">{mentor.about}</p>
+        </div>
 
-              <div className="mt-8">
-                <button className="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center gap-2">
-                  <MessageCircle className="w-5 h-5" />
-                  Schedule Session
-                </button>
-              </div>
+        {/* Education Section */}
+        <div className="mb-12">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Education</h2>
+          <div className="flex items-start gap-3">
+            <GraduationCap className="w-6 h-6 text-gray-400 mt-1" />
+            <div>
+              <p className="text-gray-600">{mentor.university}</p>
             </div>
-          </motion.div>
+          </div>
+        </div>
 
-          {/* Right Column - Detailed Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="md:col-span-2 space-y-8"
-          >
-            {/* Bio Section */}
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">About</h2>
-              <p className="text-gray-600 leading-relaxed">{mentor.bio}</p>
-            </div>
-
-            {/* Expertise Section */}
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Expertise</h2>
-              <div className="flex flex-wrap gap-2">
-                {mentor.expertise.map((skill, index) => (
-                  <span
-                    key={index}
-                    className="bg-red-50 text-red-600 px-3 py-1 rounded-full text-sm"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Achievements Section */}
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Achievements</h2>
-              <ul className="space-y-3">
-                {mentor.achievements.map((achievement, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <Award className="w-5 h-5 text-red-600 flex-shrink-0 mt-1" />
-                    <span className="text-gray-600">{achievement}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Stats Section */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white rounded-xl shadow-md p-6 text-center">
-                <div className="text-3xl font-bold text-red-600 mb-2">
-                  {mentor.sessionsCompleted}+
+        {/* Work Experience Section */}
+        <div className="mb-12">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Work Experience</h2>
+          <div className="space-y-4">
+            {mentor.workExperience.map((exp, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <Building2 className="w-6 h-6 text-gray-400 mt-1" />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-gray-900">{exp.company}</span>
+                    <span className="text-gray-500">({exp.period})</span>
+                  </div>
+                  <p className="text-gray-600">Role: {exp.role}</p>
                 </div>
-                <div className="text-gray-600">Sessions Completed</div>
               </div>
-              <div className="bg-white rounded-xl shadow-md p-6 text-center">
-                <div className="text-3xl font-bold text-red-600 mb-2">
-                  {mentor.studentsHelped}+
-                </div>
-                <div className="text-gray-600">Students Helped</div>
-              </div>
-            </div>
-          </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Languages Section */}
+        <div className="mb-12">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Language</h2>
+          <div className="flex flex-wrap gap-2">
+            {mentor.languages.map((lang, index) => (
+              <span
+                key={index}
+                className={`${languageColors[lang] || 'bg-gray-500'} text-white px-4 py-1 rounded-md text-sm`}
+              >
+                {lang}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
