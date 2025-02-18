@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Users, Clock, ArrowRight, Wallet } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const CourseSection = () => {
   const router = useRouter();
@@ -27,14 +28,14 @@ const CourseSection = () => {
       categories: ["Computer Science", "Popular Programs"],
     },
     {
-      title: "Cybersecurity",
+      title: "Cybersecurity: Advanced security with the Kali Linux",
       image: "/CradImage.png",
       duration: "5 hrs of learning",
       price: "499",
       categories: ["Computer Science", "Popular Programs"],
     },
     {
-      title: "Cloud Computing",
+      title: "Cloud Computing: The era of cloud computing",
       image: "/CradImage.png",
       learners: "78.3k+",
       duration: "6 hrs of learning",
@@ -42,28 +43,28 @@ const CourseSection = () => {
       categories: ["Computer Science", "Popular Programs"],
     },
     {
-      title: "Data Science",
+      title: "Data Science: Extract the data with Machine Laerning and AI",
       image: "/CradImage.png",
       duration: "12 hrs of learning",
       price: "499",
       categories: ["Computer Science"],
     },
     {
-      title: "IoT",
+      title: "IoT: Internet of things Introduction with cloud",
       image: "/Images.jpg",
       duration: "8 hrs of learning",
       price: "499",
       categories: ["Computer Science"],
     },
     {
-      title: "Augmented and Virtual Reality",
+      title: "Augmented and Virtual Reality makes easier",
       image: "/Images.jpg",
       duration: "10 hrs of learning",
       price: "499",
       categories: ["Computer Science"],
     },
     {
-      title: "Android Development",
+      title: "Android Development with reactive advance programming",
       image: "/Images.jpg",
       duration: "7 hrs of learning",
       price: "499",
@@ -307,7 +308,7 @@ const CourseSection = () => {
           layout
         >
           <AnimatePresence mode="wait">
-            {displayedCourses.map((course, index) => (
+            {displayedCourses.slice(0,4).map((course, index) => (
               <motion.div
                 key={course.title}
                 className="w-full p-4 space-y-2 bg-white rounded-xl overflow-hidden cursor-pointer hover:shadow-lg shadow "
@@ -369,9 +370,7 @@ const CourseSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <motion.button
-          onClick={() => router.push("/explore-courses")}
-          className="group border border-[var(--primary-color)] text-[var(--primary-color)] px-6 py-3 rounded-lg font-medium hover:bg-red-100 transition-colors inline-flex items-center"
+        <motion.div
           whileHover={{
             scale: 1.05,
             transition: {
@@ -381,20 +380,25 @@ const CourseSection = () => {
           }}
           whileTap={{ scale: 0.95 }}
         >
-          Explore Courses
-          <motion.span
-            className="inline-block ml-2"
-            initial={{ x: 0 }}
-            animate={{ x: 5 }}
-            transition={{
-              duration: 0.8,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
+          <Link
+            href="/explore-courses"
+            className="group border border-[var(--primary-color)] text-[var(--primary-color)] px-6 py-3 rounded-lg font-medium hover:bg-red-100 transition-colors inline-flex items-center"
           >
-            <ArrowRight className="w-5 h-5" />
-          </motion.span>
-        </motion.button>
+            Explore Courses
+            <motion.span
+              className="inline-block ml-2"
+              initial={{ x: 0 }}
+              animate={{ x: 5 }}
+              transition={{
+                duration: 0.8,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            >
+              <ArrowRight className="w-5 h-5" />
+            </motion.span>
+          </Link>
+        </motion.div>
       </motion.div>
     </div>
   );

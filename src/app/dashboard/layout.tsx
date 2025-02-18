@@ -1,53 +1,57 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-import Sidebar from '../../app/dashboard/components/Sidebar';
-import Header from '../../app/dashboard/components/Header';
-import DashboardContent from '../../app/dashboard/components/DashboardContent';
-import InternshipContent from '../../app/dashboard/components/InternshipContent';
-import SettingsContent from '../../app/dashboard/components/SettingsContent';
-import ExploreCoursesContent from '../../app/dashboard/components/ExploreCoursesContent';
-import CoursePurchasePage from '../../app/dashboard/components/CoursePurchasePage'
-import { SearchProvider } from './contexts/SearchContext';
+"use client";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Sidebar from "./_components/Sidebar";
+import Header from "./_components/Header";
+import DashboardContent from "./_components/DashboardContent";
+import InternshipContent from "./_components/InternshipContent";
+import SettingsContent from "./_components/SettingsContent";
+import ExploreCoursesContent from "./_components/ExploreCoursesContent";
+import CoursePurchasePage from "./_components/CoursePurchasePage";
+import { SearchProvider } from "./contexts/SearchContext";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [activeTab, setActiveTab] = useState<'courses' | 'internship' | 'settings' | 'explore'>('courses');
-    const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
-    
-    const pathname = usePathname();
-    
-    // Extract course ID from pathname if on a course page
-    useEffect(() => {
-        const match = pathname?.match(/\/dashboard\/course\/(\d+)/);
-        if (match && match[1]) {
-            setSelectedCourseId(match[1]);
-            // You might want to set activeTab to 'explore' here
-            // or create a new tab type for course details
-            setActiveTab('explore');
-        } else {
-            setSelectedCourseId(null);
-        }
-    }, [pathname]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [activeTab, setActiveTab] = useState<
+    "courses" | "internship" | "settings" | "explore"
+  >("courses");
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
+
+  const pathname = usePathname();
+
+  // Extract course ID from pathname if on a course page
+  useEffect(() => {
+    const match = pathname?.match(/\/dashboard\/course\/(\d+)/);
+    if (match && match[1]) {
+      setSelectedCourseId(match[1]);
+      // You might want to set activeTab to 'explore' here
+      // or create a new tab type for course details
+      setActiveTab("explore");
+    } else {
+      setSelectedCourseId(null);
+    }
+  }, [pathname]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-    const handleTabChange = (tab: 'courses' | 'internship' | 'settings' | 'explore') => {
-        setActiveTab(tab);
-        if (tab === 'explore') {
-            setIsSidebarOpen(false);
-        } else {
-            setIsSidebarOpen(true); // Open the sidebar for other tabs
-        }
-        // Clear selected course when changing tabs
-        setSelectedCourseId(null);
-    };
+  const handleTabChange = (
+    tab: "courses" | "internship" | "settings" | "explore"
+  ) => {
+    setActiveTab(tab);
+    if (tab === "explore") {
+      setIsSidebarOpen(false);
+    } else {
+      setIsSidebarOpen(true); // Open the sidebar for other tabs
+    }
+    // Clear selected course when changing tabs
+    setSelectedCourseId(null);
+  };
 
     return (
         <SearchProvider setActiveTab={handleTabChange}>

@@ -71,14 +71,14 @@ const FormPage = () => {
     },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: z.infer<typeof InternshipSchema>) => {
     setIsLoading(true);
     try {
       toast.success("Training program successfully created");
       router.push("/");
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error((error as any).message);
     } finally {
       setIsLoading(false);
     }

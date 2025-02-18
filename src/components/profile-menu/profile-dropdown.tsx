@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { User, LogOut, Settings, Book } from "lucide-react";
+import { User, LogOut, Book, Headset, Briefcase } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,6 @@ import {
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
 
 const ProfileDropdown = () => {
   const { data: session } = useSession();
@@ -30,9 +29,9 @@ const ProfileDropdown = () => {
       label: "My Courses",
     },
     {
-      href: "/settings",
-      icon: <Settings className="size-4" />,
-      label: "Settings",
+      href: "/support",
+      icon: <Headset className="size-4" />,
+      label: "Support",
     },
   ];
 
@@ -83,16 +82,14 @@ const ProfileDropdown = () => {
           ))}
         </DropdownMenuGroup>
 
-        <DropdownMenuSeparator />
-
         <DropdownMenuItem
           onClick={() => {
             signOut();
           }}
-          className="hover:bg-slate-50 rounded-sm cursor-pointer pl-5 mb-3"
+          className="hover:bg-slate-50 rounded-sm cursor-pointer pl-5 mb-2 "
         >
           <span
-            className={`flex items-center gap-2 text-base transition-all duration-300 hover:text-red-500`}
+            className={`flex items-center gap-2 text-base transition-all duration-300 text-red-500 `}
           >
             <LogOut className="size-4" />
             Logout

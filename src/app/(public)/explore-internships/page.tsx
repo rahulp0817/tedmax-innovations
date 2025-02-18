@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
   Users,
-  Clock,
   MapPin,
   Wallet,
   House,
   ChevronRight,
+  CalendarDays
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -130,8 +130,6 @@ const InternshipExplorer = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6 mb-24 mt-16">
-      {/* Rest of the JSX remains the same */}
-      {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-6">
         <Link
           href="/"
@@ -140,7 +138,7 @@ const InternshipExplorer = () => {
           <House className="w-4 h-4" />
         </Link>
         <ChevronRight className="w-4 h-4 text-gray-400" />
-        <span className="text-red-600 font-medium">Internships</span>
+        <span className="text-gray-600 font-medium">Internships</span>
       </nav>
 
       {/* Header */}
@@ -257,11 +255,11 @@ const InternshipExplorer = () => {
                           <Wallet size={16} /> {internship.stipend}
                         </div>
                         <div className="flex items-center gap-2">
-                          <Clock size={16} /> {internship.duration}
+                          <CalendarDays size={16} /> {internship.duration}
                         </div>
-                        <div className="flex items-center gap-2">
+                        {/* <div className="flex items-center gap-2">
                           <Users size={16} /> {internship.applicants} applicants
-                        </div>
+                        </div> */}
                       </div>
 
                       {/* Tech Stacks */}

@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import courses from "@/app/(public)/courses/data";
@@ -10,15 +10,25 @@ import { internships } from "@/app/(public)/internships/data";
 
 const HeroSection = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredResults, setFilteredResults] = useState([]);
+
+  interface SearchResult {
+    type: string;
+    title?: string;
+    id?: string | number;
+    name?: string;
+    count?: number;
+    company?: string;
+  }
+
+  const [filteredResults, setFilteredResults] = useState<SearchResult[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const searchContainerRef = useRef(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef(null);
   const router = useRouter();
 
   const categories = [
     // { id: 'all', name: 'All Programs', count: 20 },
-    { id: 'popular', name: 'Popular Programs', count: 3 },
+    // { id: 'popular', name: 'Popular Programs', count: 3 },
     { id: 'cs', name: 'Computer Science & Technology', count: 8 },
     { id: 'ee', name: 'Electrical & Electronics Engineering', count: 5 },
     { id: 'me', name: 'Mechanical & Manufacturing Engineering', count: 5 },
@@ -27,58 +37,110 @@ const HeroSection = () => {
 
   const internshipCategories = [
     // { id: 'all', name: 'All Internships', count: internships.length },
-    { id: 'popular', name: 'Popular Internships', count: internships.filter(internship => internship.category.includes('Popular Internships')).length },
-    { id: 'software', name: 'Software Development', count: internships.filter(internship => internship.category.includes('software')).length },
-    { id: 'data', name: 'Data Analytics', count: internships.filter(internship => internship.category.includes('data')).length },
-    { id: 'business', name: 'Business Development', count: internships.filter(internship => internship.category.includes('business')).length },
-    { id: 'marketing', name: 'Digital Marketing', count: internships.filter(internship => internship.category.includes('marketing')).length },
-    { id: 'design', name: 'UI/UX Design', count: internships.filter(internship => internship.category.includes('design')).length },
-    { id: 'hr', name: 'Human Resources', count: internships.filter(internship => internship.category.includes('hr')).length },
-    { id: 'finance', name: 'Finance', count: internships.filter(internship => internship.category.includes('finance')).length },
+    {
+      id: "popular",
+      name: "Popular Internships",
+      count: internships.filter((internship) =>
+        internship.category.includes("Popular Internships")
+      ).length,
+    },
+    {
+      id: "software",
+      name: "Software Development",
+      count: internships.filter((internship) =>
+        internship.category.includes("software")
+      ).length,
+    },
+    {
+      id: "data",
+      name: "Data Analytics",
+      count: internships.filter((internship) =>
+        internship.category.includes("data")
+      ).length,
+    },
+    {
+      id: "business",
+      name: "Business Development",
+      count: internships.filter((internship) =>
+        internship.category.includes("business")
+      ).length,
+    },
+    {
+      id: "marketing",
+      name: "Digital Marketing",
+      count: internships.filter((internship) =>
+        internship.category.includes("marketing")
+      ).length,
+    },
+    {
+      id: "design",
+      name: "UI/UX Design",
+      count: internships.filter((internship) =>
+        internship.category.includes("design")
+      ).length,
+    },
+    {
+      id: "hr",
+      name: "Human Resources",
+      count: internships.filter((internship) =>
+        internship.category.includes("hr")
+      ).length,
+    },
+    {
+      id: "finance",
+      name: "Finance",
+      count: internships.filter((internship) =>
+        internship.category.includes("finance")
+      ).length,
+    },
   ];
 
-  const handleSearch = (term) => {
-    const filteredCourses = courses.filter(course =>
-      course.title.toLowerCase().includes(term.toLowerCase())
-    ).slice(0, 5);
+  const handleSearch = (term: string) => {
+    const filteredCourses = courses
+      .filter((course) =>
+        course.title.toLowerCase().includes(term.toLowerCase())
+      )
+      .slice(0, 5);
 
-    const filteredInternships = internships.filter(internship =>
-      internship.title.toLowerCase().includes(term.toLowerCase())
-    ).slice(0, 5);
+    const filteredInternships = internships
+      .filter((internship) =>
+        internship.title.toLowerCase().includes(term.toLowerCase())
+      )
+      .slice(0, 5);
 
-    const filteredCategories = categories.filter(category =>
+    const filteredCategories = categories.filter((category) =>
       category.name.toLowerCase().includes(term.toLowerCase())
     );
 
-    const filteredInternshipCategories = internshipCategories.filter(category =>
-      category.name.toLowerCase().includes(term.toLowerCase())
+    const filteredInternshipCategories = internshipCategories.filter(
+      (category) => category.name.toLowerCase().includes(term.toLowerCase())
     );
 
     // Combine all results and remove duplicates
     const combinedResults = [
-      ...filteredCourses.map(course => ({
+      ...filteredCourses.map((course) => ({
         ...course,
-        type: 'course'
+        type: "course",
       })),
-      ...filteredInternships.map(internship => ({
+      ...filteredInternships.map((internship) => ({
         ...internship,
-        type: 'internship'
+        type: "internship",
       })),
-      ...filteredCategories.map(category => ({
+      ...filteredCategories.map((category) => ({
         ...category,
-        type: 'category'
+        type: "category",
       })),
-      ...filteredInternshipCategories.map(category => ({
+      ...filteredInternshipCategories.map((category) => ({
         ...category,
-        type: 'internshipCategory'
-      }))
+        type: "internshipCategory",
+      })),
     ];
 
     // Remove duplicates based on title or name
-    const uniqueResults = combinedResults.filter((item, index, self) =>
-      index === self.findIndex((t) => (
-        t.title === item.title || t.name === item.name
-      ))
+    const uniqueResults = combinedResults.filter(
+      (item, index, self) =>
+        index ===
+        self.findIndex((t) => ('title' in t && t.title === item.title) || ('name' in t && 'name' in item && t.name === item.name))
     );
 
     setFilteredResults(uniqueResults);
@@ -86,43 +148,48 @@ const HeroSection = () => {
 
   const handleSearchFocus = () => {
     const navbarHeight = 80;
-    const offset = searchContainerRef.current.getBoundingClientRect().top + window.scrollY - navbarHeight;
-
+    const offset = searchContainerRef.current ? searchContainerRef.current.getBoundingClientRect().top + window.scrollY - navbarHeight : 0;
+  
     window.scrollTo({
       top: offset,
-      behavior: 'smooth',
-      duration: 1000
+      behavior: "smooth",
     });
 
     setShowDropdown(true);
 
-    // Populate initial results with 4-5 courses and internships
-    const initialCourses = courses.slice(0, 5).map(course => ({
+    const initialCourses = courses.slice(0, 5).map((course) => ({
       ...course,
-      type: 'course'
+      type: "course",
     }));
 
-    // Combine initial results
     const initialResults = [...initialCourses];
 
     setFilteredResults(initialResults);
   };
 
-  const handleItemSelect = (item) => {
-    if (item.type === 'course') {
-      router.push(`/courses/${generateSlug(item.title)}`);
-    } else if (item.type === 'internship') {
-      router.push(`/internships/${generateSlug(item.title)}`);
-    } else if (item.type === 'category') {
+  const handleItemSelect = (item: {
+    type: string;
+    title?: string;
+    id?: string | number;
+    name?: string;
+  }) => {
+    if (item.type === "course") {
+      if (item.title) {
+        router.push(`/courses/${generateSlug(item.title)}`);
+      }
+      if (item.title) {
+        router.push(`/internships/${generateSlug(item.title)}`);
+      }
+    } else if (item.type === "category") {
       router.push(`/explore-courses?category=${item.id}`);
-    } else if (item.type === 'internshipCategory') {
+    } else if (item.type === "internshipCategory") {
       router.push(`/explore-internships?category=${item.id}`);
     }
     setShowDropdown(false);
   };
 
-  const generateSlug = (title) => {
-    return title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
+  const generateSlug = (title: string) => {
+    return title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
   };
 
   const handleSearchSubmit = () => {
@@ -135,8 +202,11 @@ const HeroSection = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node)
+      ) {
         setShowDropdown(false);
       }
     };
@@ -231,42 +301,36 @@ const HeroSection = () => {
                     exit={{ opacity: 0, y: -10 }}
                     className="absolute top-full left-0 right-[126px] mt-2 bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200"
                   >
-                    {filteredResults.length > 0 ? (
-                      filteredResults.map((item, index) => (
-                        <div
-                          key={item.id || index}
-                          onClick={() => handleItemSelect(item)}
-                          className={`
-              p-4 hover:bg-gray-50 cursor-pointer transition-colors
-              ${index !== filteredResults.length - 1 ? 'border-b border-gray-100' : ''}
-            `}
-                        >
-                          {item.type === 'course' ? (
-                            <div className="flex justify-between items-start">
-                              <div>
-                                <div className="font-medium text-gray-900">{item.title}</div>
-                              </div>
+                    {filteredResults.map((item, index) => (
+                      <div
+                        key={item.id || index}
+                        onClick={() => handleItemSelect(item)}
+                        className={`
+            p-4 hover:bg-gray-50 cursor-pointer transition-colors
+            ${index !== filteredResults.length - 1 ? 'border-b border-gray-100' : ''}
+          `}
+                      >
+                        {item.type === 'course' ? (
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <div className="font-medium text-gray-900">{item.title}</div>
                             </div>
-                          ) : item.type === 'internship' ? (
-                            <div className="flex justify-between items-start">
-                              <div>
-                                <div className="font-medium text-gray-900">{item.title}</div>
-                                <div className="text-sm text-gray-500 mt-1">{item.company}</div>
-                              </div>
+                          </div>
+                        ) : item.type === 'internship' ? (
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <div className="font-medium text-gray-900">{item.title}</div>
+                              <div className="text-sm text-gray-500 mt-1">{item.company}</div>
                             </div>
-                          ) : (
-                            <div className="flex justify-between items-center">
-                              <span className="font-medium text-gray-900">{item.name}</span>
-                              <span className="text-sm text-gray-500">({item.count} {item.type === 'category' ? 'courses' : 'internships'})</span>
-                            </div>
-                          )}
-                        </div>
-                      ))
-                    ) : (
-                      <div className="px-4 py-3 text-sm text-gray-500 text-center">
-                        No course or internship present. Explore other courses or internships!
+                          </div>
+                        ) : (
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium text-gray-900">{item.name}</span>
+                            <span className="text-sm text-gray-500">({item.count} {item.type === 'category' ? 'courses' : 'internships'})</span>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>

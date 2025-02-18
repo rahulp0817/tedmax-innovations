@@ -10,7 +10,7 @@ export const courses = [
   },
   {
     id: 2,
-    title: "Cybersecurity",
+    title: "Cybersecurity: Advanced security with the Kali Linux",
     category: ["cs", "popular"],
     difficulty: "advanced",
     duration: "5hrs 30mins",
@@ -19,7 +19,7 @@ export const courses = [
   },
   {
     id: 3,
-    title: "Cloud Computing",
+    title: "Cloud Computing: The era of cloud computing",
     category: ["cs", "popular"],
     difficulty: "basic",
     duration: "6hrs 30mins",
@@ -28,7 +28,7 @@ export const courses = [
   },
   {
     id: 4,
-    title: "Data Science",
+    title: "Data Science: Extract the data with Machine Laerning and AI",
     category: ["cs"],
     difficulty: "advanced",
     duration: "12hrs 30mins",
@@ -37,7 +37,7 @@ export const courses = [
   },
   {
     id: 5,
-    title: "IoT",
+    title: "IoT: Internet of things Introduction with cloud",
     category: ["cs"],
     difficulty: "basic",
     duration: "8hrs 30mins",
@@ -46,7 +46,7 @@ export const courses = [
   },
   {
     id: 6,
-    title: "Augmented and Virtual Reality",
+    title: "Augmented and Virtual Reality makes easier",
     category: ["cs"],
     difficulty: "advanced",
     duration: "10hrs 30mins",
@@ -55,7 +55,7 @@ export const courses = [
   },
   {
     id: 7,
-    title: "Android Development",
+    title: "Android Development with kotlin and react native support",
     category: ["cs"],
     difficulty: "basic",
     duration: "7hrs 30mins",

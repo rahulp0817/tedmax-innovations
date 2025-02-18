@@ -25,26 +25,8 @@ function page() {
     });
   };
 
-  const handledelete = async () => {
-    try {
-      // await fetch(`/api/delete-account`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ userId: session?.user?.id }),
-      // });
-      toast.error("Account deleted successfully!", {
-        className: "text-red-500",
-      });
-      // window.location.href = "/";
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to delete account!");
-    }
-  };
   return (
-    <section className="mx-24 w-full overflow-hidden ">
+    <section className="mx-24 w-full overflow-hidden h-screen">
       <div className="flex gap-12 w-full">
         <div className="text-center">
           <Card className="p-6">
@@ -80,7 +62,6 @@ function page() {
                 size={"lg"}
                 variant="outline"
                 className="w-full gap-3 text-red-500 border border-red-600 hover:bg-red-100"
-                onClick={handledelete}
               >
                 <Trash />
                 Delete Account

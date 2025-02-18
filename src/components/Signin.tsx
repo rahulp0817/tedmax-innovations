@@ -64,7 +64,7 @@ const Signin = () => {
       !currentDomain ||
       !emailDomains.some((domain) => domain.startsWith(currentDomain))
     ) {
-      setSuggestedDomains([]); // Hide suggestions for mismatched domains
+      setSuggestedDomains([]); 
       return;
     }
 
@@ -179,11 +179,11 @@ const Signin = () => {
           <h2 className="text-3xl font-semibold tracking-tighter xl:text-4xl">
             Welcome to{" "}
             <span className="bg-gradient-to-b from-red-400 to-red-700 bg-clip-text pr-1 font-black tracking-tighter text-transparent">
-              Tedmex
+              Tedmax
             </span>
           </h2>
           <p className="text-lg font-medium tracking-tighter text-primary/75 md:text-xl">
-            Log in to access paid content!
+            Log in to access content!
           </p>
         </div>
         <div className="space-y-4">

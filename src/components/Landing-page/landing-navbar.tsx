@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 import ProfileDropdown from "../profile-menu/profile-dropdown";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const LandingNavbar = () => {
   const { data: session } = useSession();
@@ -111,8 +112,7 @@ const LandingNavbar = () => {
                     <ChevronDown size={16} />
                   )}
                 </button>
-                
-                
+
                 <AnimatePresence>
                   {isprofessional && (
                     <motion.div
@@ -131,10 +131,11 @@ const LandingNavbar = () => {
                               block px-4 py-2 overflow-hidden text-sm text-gray-700
                              hover:bg-gray-700 hover:text-white
                              ${index === 0 ? "rounded-t-md" : ""} 
-                             ${index === professional.length - 1
-                                ? "rounded-b-md"
-                                : ""
-                              }
+                             ${
+                               index === professional.length - 1
+                                 ? "rounded-b-md"
+                                 : ""
+                             }
                            `}
                           >
                             {item}
@@ -161,10 +162,11 @@ const LandingNavbar = () => {
                               flex px-4 py-2 overflow-hidden text-sm text-gray-700
                              hover:bg-gray-700 hover:text-white justify-between items-center cursor-pointer
                              ${index === 0 ? "rounded-t-md" : ""} 
-                             ${index === categories.length - 1
-                                ? "rounded-b-md"
-                                : ""
-                              }
+                             ${
+                               index === categories.length - 1
+                                 ? "rounded-b-md"
+                                 : ""
+                             }
                            `}
                           >
                             {item}
@@ -182,73 +184,76 @@ const LandingNavbar = () => {
               {process.env.ADMINS?.split(",")
                 .map((email) => email.trim())
                 .includes(session?.user?.email ?? "") && (
-                  <div className="flex items-center gap-8">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      transition={springConfig}
-                      className="px-4 py-2 text-white rounded-lg transition-all text-sm mr-4"
-                      onClick={() => router.push("/admin")}
-                    >
-                      Admin Dashboard
-                    </motion.button>
-                  </div>
-                )}
+                <div className="flex items-center gap-8">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    transition={springConfig}
+                    className="px-4 py-2 text-white rounded-lg transition-all text-sm mr-4"
+                    onClick={() => router.push("/admin")}
+                  >
+                    Admin Dashboard
+                  </motion.button>
+                </div>
+              )}
 
               {/* Right Navigation Items */}
               {!session?.user && (
                 <div className="hidden lg:flex items-center gap-4">
-                  <motion.button
+                  <motion.div
                     whileHover={{ scale: 1.05, borderColor: "#dc2626" }}
                     transition={springConfig}
-                    className={`px-4 py-2 border rounded-lg hover:text-red-600 transition-all text-sm hover:bg-red-100 ${textStyles} ${borderStyles}`}
-                    onClick={() => router.push("/signin")}
                   >
-                    Login
-                  </motion.button>
+                    <Link
+                      href="/signin"
+                      className={`px-4 py-2 border rounded-lg hover:text-red-600 transition-all text-sm hover:bg-red-100 ${textStyles} ${borderStyles}`}
+                    >
+                      Login
+                    </Link>
+                  </motion.div>
 
                   <motion.div
                     className="relative"
                     onHoverStart={() => setIsHovered(true)}
                     onHoverEnd={() => setIsHovered(false)}
                   >
-                    <motion.button
-                      className="px-4 py-2 text-sm bg-[var(--primary-color)] text-white rounded-lg hover:bg-red-700 transition-all flex gap-1 text-center overflow-hidden "
-                      onClick={() => router.push("/signup")}
+                    <motion.div
                       whileHover={{ scale: 1.05 }}
                       transition={springConfig}
+                      className="overflow-hidden"
                     >
-                      <AnimatePresence mode="wait">
-                        {isHovered ? (
-                          <motion.span
-                            key="hovered"
-                            initial={{ y: 30 }}
-                            animate={{ y: 0 }}
-                            exit={{ y: -30 }}
-                            transition={springConfig}
-                            className="flex gap-1 items-center"
-                          >
-                            Join now
-                            <>
-                              <ChevronRight className="size-4  text-white" />
-                            </>
-                          </motion.span>
-                        ) : (
-                          <motion.span
-                            key="normal"
-                            initial={{ y: 30 }}
-                            animate={{ y: 0 }}
-                            exit={{ y: -30 }}
-                            transition={springConfig}
-                            className="flex gap-1 items-center"
-                          >
-                            Join now
-                            <>
-                              <ChevronRight className="size-4  text-white" />
-                            </>
-                          </motion.span>
-                        )}
-                      </AnimatePresence>
-                    </motion.button>
+                      <Link
+                        href="/signup"
+                        className="px-4 py-2 text-sm bg-[var(--primary-color)] text-white rounded-lg hover:bg-red-700 transition-all flex gap-1 text-center"
+                      >
+                        <AnimatePresence mode="wait">
+                          {isHovered ? (
+                            <motion.span
+                              key="hovered"
+                              initial={{ y: 30 }}
+                              animate={{ y: 0 }}
+                              exit={{ y: -30 }}
+                              transition={springConfig}
+                              className="flex gap-1 items-center"
+                            >
+                              Join now
+                              <ChevronRight className="size-4 text-white" />
+                            </motion.span>
+                          ) : (
+                            <motion.span
+                              key="normal"
+                              initial={{ y: 30 }}
+                              animate={{ y: 0 }}
+                              exit={{ y: -30 }}
+                              transition={springConfig}
+                              className="flex gap-1 items-center"
+                            >
+                              Join now
+                              <ChevronRight className="size-4 text-white" />
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </Link>
+                    </motion.div>
                   </motion.div>
                 </div>
               )}

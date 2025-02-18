@@ -7,8 +7,8 @@ export function Reviews() {
   return (
     <div className="mb-28">
       <div className="px-24 text-center">
-        <h1 className="mb-2">LEARNER TESTIMONIALS</h1>
-        <span className="text-4xl font-semibold">
+        <h1 className="mb-2 text-sm">LEARNER TESTIMONIALS</h1>
+        <span className="text-3xl font-semibold">
           Here from <span className="text-red-600">our students</span>
         </span>
       </div>

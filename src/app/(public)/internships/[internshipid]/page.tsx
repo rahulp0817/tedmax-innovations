@@ -4,13 +4,16 @@ import { usePathname } from "next/navigation";
 import InternshipDetails from "@/app/(public)/internship-description/internship-details";
 import { internships } from "@/app/(public)/internships/data";
 
-const generateSlug = (title) => {
-  return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+const generateSlug = (title: string) => {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 };
 
 const Page = () => {
   const pathname = usePathname();
-  
+
   // Extract internshipId from the URL
   const internshipSlug = pathname.split("/").pop();
   console.log("URL Slug:", internshipSlug);
@@ -22,13 +25,18 @@ const Page = () => {
 
   // Debugging: Log all internships to compare slugs
   internships.forEach((internship) => {
-    console.log("Expected Slug:", generateSlug(internship.title), " Title:", internship.title);
+    console.log(
+      "Expected Slug:",
+      generateSlug(internship.title),
+      " Title:",
+      internship.title
+    );
   });
 
   if (!selectedInternship) {
-    return <div className="p-8 text-center">❌ Internship Not Found. Check console logs for details.</div>;
+    return <div className="p-8 text-center">❌ Internship Not Found</div>;
   }
-
+  //@ts-ignore
   return <InternshipDetails internship={selectedInternship} />;
 };
 

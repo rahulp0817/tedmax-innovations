@@ -66,7 +66,7 @@ const CourseFormPage = () => {
     },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: z.infer<typeof CourseSchema>) => {
     setIsLoading(true);
     try {
       // Simulate API call
@@ -74,7 +74,11 @@ const CourseFormPage = () => {
       router.push("/");
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     } finally {
       setIsLoading(false);
     }
