@@ -29,11 +29,6 @@ const ProfileDropdown = () => {
       label: "My Courses",
     },
     {
-      href: "/applied-internship",
-      icon: <Briefcase className="size-4" />,
-      label: "Applied Internships",
-    },
-    {
       href: "/support",
       icon: <Headset className="size-4" />,
       label: "Support",
