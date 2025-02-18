@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import courses from "../courses/data";
+import { toast } from "sonner";
 
 interface Course {
   image: string;
@@ -33,6 +34,13 @@ const CoursePurchasePage: React.FC<CoursePurchasePageProps> = ({ course }) => {
   if (!course) {
     return <div>Course not found</div>;
   }
+
+  const handlelinkcopy = () => {
+    navigator.clipboard.writeText(window.location.href);
+    toast.success("Profile Link Copied!", {
+      className: "text-success",
+    });
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -64,7 +72,9 @@ const CoursePurchasePage: React.FC<CoursePurchasePageProps> = ({ course }) => {
             {course.title}
           </h1>
           <div>
-            <h1 className="text-xl font-bold text-gray-900 mb-4">Overview of course</h1>
+            <h1 className="text-xl font-bold text-gray-900 mb-4">
+              Overview of course
+            </h1>
             <p className="text-gray-600 mb-6">{course.description}</p>
           </div>
         </div>
@@ -77,7 +87,10 @@ const CoursePurchasePage: React.FC<CoursePurchasePageProps> = ({ course }) => {
               ₹{course.price}
             </button>
 
-            <button className="w-full border border-gray-300 text-gray-700 py-3 rounded-full font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+            <button
+              onClick={handlelinkcopy}
+              className="w-full border border-gray-300 text-gray-700 py-3 rounded-full font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+            >
               <Copy size={16} />
               <span>Copy link</span>
             </button>
