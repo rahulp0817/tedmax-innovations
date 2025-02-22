@@ -189,7 +189,7 @@ const CourseExplorer = () => {
                   layout
                 >
                   <Link
-                    href={`/explore-courses/${generateSlug(course.title)}`}
+                    href={`/courses/${generateSlug(course.title)}`}
                     className="block h-full"
                   >
                     <motion.div className="p-4 rounded-xl">

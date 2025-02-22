@@ -1,102 +1,85 @@
-// app/dashboard/certificate/page.tsx
-"use client";
-import React from 'react';
-import { Copy, Share } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { Play, Clock, Copy, Share, X } from "lucide-react";
+import React, { useState } from 'react';
+import Link from 'next/link';
 
-export default function CertificatePage() {
-    const searchParams = useSearchParams();
-    const courseTitle = searchParams.get('course') || "Web Development Course";
+// Modal Component
+const CertificateModal = ({ 
+  isOpen, 
+  onClose, 
+  courseTitle 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  courseTitle: string;
+}) => {
+  if (!isOpen) return null;
 
-    const handleDownload = () => {
-        // Add download logic here
-        console.log('Downloading certificate...');
-    };
+  const handleDownload = () => {
+    console.log('Downloading certificate...');
+  };
 
-    const handleShare = () => {
-        // Add share logic here
-        console.log('Sharing certificate...');
-    };
+  const handleShare = () => {
+    console.log('Sharing certificate...');
+  };
 
-    const handleCopyLink = () => {
-        // Add copy link logic here
-        navigator.clipboard.writeText(window.location.href);
-    };
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+  };
 
-    return (
-        <div className="max-w-2xl mx-auto p-6 space-y-8">
-            {/* Certificate Container */}
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-                <img
-                    src="/Webdev-Course-Certificate.png"
-                    alt="Course Certificate"
-                    className="w-full h-auto rounded-lg"
-                />
-            </div>
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 relative">
+        {/* Close Button */}
+        <button 
+          onClick={onClose}
+          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
+        >
+          <X className="w-6 h-6" />
+        </button>
 
-            {/* Action Buttons Container */}
-            <div className="flex flex-col gap-4 items-center max-w-md mx-auto">
-                {/* Download Button */}
-                <button
-                    onClick={handleDownload}
-                    className="w-full py-4 bg-[#4CAF50] hover:bg-[#45a049] text-white rounded-lg font-medium text-lg transition-colors shadow-sm"
-                >
-                    Download Certificate
-                </button>
-
-                {/* Share and Copy Link Container */}
-                <div className="flex w-full gap-4">
-                    {/* Share Button */}
-                    <button
-                        onClick={handleShare}
-                        className="flex-1 py-4 bg-[#3B5998] hover:bg-[#344e86] text-white rounded-lg font-medium flex items-center justify-center gap-2 transition-colors shadow-sm"
-                    >
-                        <Share className="w-5 h-5" />
-                        Share
-                    </button>
-
-                    {/* Copy Link Button */}
-                    <button
-                        onClick={handleCopyLink}
-                        className="flex-1 py-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors shadow-sm"
-                    >
-                        <Copy className="w-5 h-5" />
-                        Copy link
-                    </button>
-                </div>
-            </div>
+        <h2 className="text-xl font-semibold mb-4">Course Certificate</h2>
+        
+        {/* Certificate Image */}
+        <div className="bg-white rounded-lg mb-6">
+          <img
+            src="/Webdev-Course-Certificate.png"
+            alt="Course Certificate"
+            className="w-full h-auto rounded-lg"
+          />
         </div>
-    );
-}
 
-// Optional: Create a DownloadButton component for better organization
-const DownloadButton = ({ onClick }: { onClick: () => void }) => (
-    <button
-        onClick={onClick}
-        className="w-full py-4 bg-[#4CAF50] hover:bg-[#45a049] text-white rounded-lg font-medium text-lg transition-colors shadow-sm"
-    >
-        Download Certificate
-    </button>
-);
+        {/* Action Buttons */}
+        <div className="flex flex-col gap-4">
+          {/* Download Button */}
+          <button
+            onClick={handleDownload}
+            className="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium text-lg transition-colors"
+          >
+            Download Certificate
+          </button>
 
-// Optional: Create a ShareButton component
-const ShareButton = ({ onClick }: { onClick: () => void }) => (
-    <button
-        onClick={onClick}
-        className="flex-1 py-4 bg-[#3B5998] hover:bg-[#344e86] text-white rounded-lg font-medium flex items-center justify-center gap-2 transition-colors shadow-sm"
-    >
-        <Share className="w-5 h-5" />
-        Share
-    </button>
-);
+          {/* Share and Copy Link Container */}
+          <div className="flex gap-4">
+            {/* Share Button */}
+            <button
+              onClick={handleShare}
+              className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
+            >
+              <Share className="w-5 h-5" />
+              Share
+            </button>
 
-// Optional: Create a CopyLinkButton component
-const CopyLinkButton = ({ onClick }: { onClick: () => void }) => (
-    <button
-        onClick={onClick}
-        className="flex-1 py-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors shadow-sm"
-    >
-        <Copy className="w-5 h-5" />
-        Copy link
-    </button>
-);
+            {/* Copy Link Button */}
+            <button
+              onClick={handleCopyLink}
+              className="flex-1 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
+            >
+              <Copy className="w-5 h-5" />
+              Copy link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
