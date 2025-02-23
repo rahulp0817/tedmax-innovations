@@ -34,7 +34,10 @@ const LandingNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const categories = ["Courses", "Internships"];
+  const categories = [
+    { name: "Courses", link: "/explore-courses" },
+    { name: "Internship", link: "/explore-internships" },
+  ];
 
   const professional = [
     "Development",
@@ -126,7 +129,7 @@ const LandingNavbar = () => {
                         {professional.map((item, index) => (
                           <motion.a
                             key={item}
-                            href="#"
+                            href="/explore-courses"
                             className={`
                               block px-4 py-2 overflow-hidden text-sm text-gray-700
                              hover:bg-gray-700 hover:text-white
@@ -156,22 +159,23 @@ const LandingNavbar = () => {
                     >
                       <div>
                         {categories.map((item, index) => (
-                          <motion.div
-                            key={item}
-                            className={`
+                          <Link key={item.name} href={item.link}>
+                            <motion.div
+                              className={`
                               flex px-4 py-2 overflow-hidden text-sm text-gray-700
-                             hover:bg-gray-700 hover:text-white justify-between items-center cursor-pointer
-                             ${index === 0 ? "rounded-t-md" : ""} 
-                             ${
-                               index === categories.length - 1
-                                 ? "rounded-b-md"
-                                 : ""
-                             }
-                           `}
-                          >
-                            {item}
-                            <ChevronRight className="size-4 " />
-                          </motion.div>
+                              hover:bg-gray-700 hover:text-white justify-between items-center cursor-pointer
+                              ${index === 0 ? "rounded-t-md" : ""} 
+                              ${
+                                index === categories.length - 1
+                                  ? "rounded-b-md"
+                                  : ""
+                              }
+                            `}
+                            >
+                              {item.name}
+                              <ChevronRight className="size-4" />
+                            </motion.div>
+                          </Link>
                         ))}
                       </div>
                     </motion.div>
