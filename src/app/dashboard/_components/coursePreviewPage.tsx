@@ -1,12 +1,6 @@
-'use client'
+"use client";
 import React, { useState } from "react";
-import {
-  ArrowLeft,
-  Play,
-  ChevronDown,
-  CheckCircle,
-  Circle
-} from "lucide-react";
+import { ArrowLeft, Play, ChevronDown, CirclePlay } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   Accordion,
@@ -14,12 +8,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
 interface Course {
@@ -39,31 +27,33 @@ interface CoursePreviewPageProps {
 
 const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
   const router = useRouter();
-  const [moduleProgress, setModuleProgress] = useState<Record<string, boolean>>({});
-  const [quizProgress, setQuizProgress] = useState<Record<string, boolean>>({});
+  const [moduleProgress, setModuleProgress] = useState<Record<string, boolean>>(
+    {}
+  );
+  const [quizScores, setQuizScores] = useState<Record<string, number>>({});
 
-  const totalModules = 10;
-  const totalQuizzes = 5;
-  const totalItems = totalModules + totalQuizzes;
-
-  const completedItems = Object.values(moduleProgress).filter(Boolean).length +
-    Object.values(quizProgress).filter(Boolean).length;
-  
-  const isCourseCompleted = completedItems === totalItems;
+  const totalModules = 8; // Increased number of modules
+  const totalQuizzes = 3;
 
   const handleModuleComplete = (moduleId: string) => {
-    setModuleProgress(prev => ({
+    setModuleProgress((prev) => ({
       ...prev,
-      [moduleId]: !prev[moduleId]
+      [moduleId]: !prev[moduleId],
     }));
   };
 
-  const handleQuizComplete = (quizId: string) => {
-    setQuizProgress(prev => ({
-      ...prev,
-      [quizId]: !prev[quizId]
-    }));
+  const handleQuizClick = (quizId: number) => {
+    // Navigate to quiz page
+    router.push(`/quiz/${quizId}`);
   };
+
+  // Calculate if course is completed based on module completion and quiz scores
+  const isModulesCompleted =
+    Object.values(moduleProgress).filter(Boolean).length === totalModules;
+  const isQuizzesCompleted =
+    Object.values(quizScores).filter((score) => score >= 80).length ===
+    totalQuizzes;
+  const isCourseCompleted = isModulesCompleted && isQuizzesCompleted;
 
   if (!course) {
     return <div>Course not found</div>;
@@ -76,7 +66,7 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
         className="flex items-center gap-2 text-gray-600 mb-6 hover:text-gray-900"
       >
         <ArrowLeft size={20} />
-        <span>Back to Courses</span>
+        <span>Back to dashboard</span>
       </button>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -92,36 +82,6 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
               <button className="w-16 h-16 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
                 <Play size={32} className="text-gray-900 ml-1" />
               </button>
-            </div>
-            {/* Course Status Dropdown */}
-            <div className="absolute top-4 right-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="bg-white">
-                    Course Status <ChevronDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-64">
-                  {Array.from({ length: totalModules }).map((_, i) => (
-                    <DropdownMenuItem key={i} className="flex items-center justify-between">
-                      <span>Module {i + 1}</span>
-                      {moduleProgress[`module-${i + 1}`] ? 
-                        <span className="text-green-600 text-sm">Completed</span> : 
-                        <span className="text-gray-400 text-sm">Not Completed</span>
-                      }
-                    </DropdownMenuItem>
-                  ))}
-                  {Array.from({ length: totalQuizzes }).map((_, i) => (
-                    <DropdownMenuItem key={`quiz-${i}`} className="flex items-center justify-between">
-                      <span>Quiz {i + 1}</span>
-                      {quizProgress[`quiz-${i + 1}`] ? 
-                        <span className="text-green-600 text-sm">Completed</span> : 
-                        <span className="text-gray-400 text-sm">Not Completed</span>
-                      }
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
             </div>
           </div>
 
@@ -139,45 +99,89 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
         {/* Right Column */}
         <div className="lg:col-span-1 space-y-6">
           <div className="bg-white rounded-xl p-6 shadow-lg">
-            <Accordion type="single" collapsible>
-              {Array.from({ length: totalModules }, (_, i) => (
-                <AccordionItem key={i} value={`module-${i + 1}`}>
-                  <AccordionTrigger>
-                    <div className="flex items-center justify-between w-full">
-                      <span>Module {i + 1}</span>
-                      <input 
-                        type="checkbox" 
-                        checked={moduleProgress[`module-${i + 1}`] || false}
-                        onChange={() => handleModuleComplete(`module-${i + 1}`)}
-                        className="ml-2"
-                      />
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p>Content for Module {i + 1}</p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-              {Array.from({ length: totalQuizzes }, (_, i) => (
-                <AccordionItem key={`quiz-${i + 1}`} value={`quiz-${i + 1}`}>
-                  <AccordionTrigger>
-                    <div className="flex items-center justify-between w-full">
-                      <span>Quiz {i + 1}</span>
-                      <input 
-                        type="checkbox" 
-                        checked={quizProgress[`quiz-${i + 1}`] || false}
-                        onChange={() => handleQuizComplete(`quiz-${i + 1}`)}
-                        className="ml-2"
-                      />
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p>Content for Quiz {i + 1}</p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <div className="max-h-[420px] overflow-y-auto pr-6">
+              <Accordion type="single" collapsible>
+                {Array.from({ length: totalModules }, (_, i) => (
+                  <AccordionItem key={i} value={`module-${i + 1}`}>
+                    <AccordionTrigger>
+                      <div className="flex items-center w-full justify-between">
+                        <div className="flex items-center gap-6">
+                          <input
+                            type="checkbox"
+                            checked={moduleProgress[`module-${i + 1}`] || false}
+                            onChange={() =>
+                              handleModuleComplete(`module-${i + 1}`)
+                            }
+                            className="ml-0 w-4 h-4"
+                          />
+                          <span>Chapter {i + 1}</span>
+                        </div>
+                        <div className="mr-4">
+                          {moduleProgress[`module-${i + 1}`] ? (
+                            <span className="text-white text-sm border px-2 py-1 items-center rounded-xl bg-[#00DDC0]">
+                              Completed
+                            </span>
+                          ) : (
+                            <span className="text-gray-400 text-sm"></span>
+                          )}
+                        </div>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <p className="flex items-center gap-2 mb-1">
+                        <CirclePlay className="w-4 h-4"/>
+                        Content for Module {i + 1}
+                      </p>
+                      <p className="flex items-center gap-2 mb-1">
+                        <CirclePlay className="w-4 h-4"/>
+                        Content for Module {i + 2}
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <CirclePlay className="w-4 h-4"/>
+                        Content for Module {i + 3}
+                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+
+                {/* Quizzes section */}
+                {Array.from({ length: totalQuizzes }, (_, i) => (
+                  <AccordionItem key={`quiz-${i + 1}`} value={`quiz-${i + 1}`}>
+                    <AccordionTrigger>
+                      <div className="flex items-center w-full justify-between">
+                        <span>Quiz {i + 1}</span>
+                        <div className="mr-4">
+                          {quizScores[`quiz-${i + 1}`] >= 80 ? (
+                            <span className="text-white text-sm border px-2 py-1 items-center rounded-xl bg-[#00DDC0]">
+                              Completed
+                            </span>
+                          ) : (
+                            <span className="text-gray-400 text-sm"></span>
+                          )}
+                        </div>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="p-4">
+                        <Button
+                          onClick={() => handleQuizClick(i + 1)}
+                          className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                          Start Quiz
+                        </Button>
+                        {quizScores[`quiz-${i + 1}`] && (
+                          <p className="mt-2 text-sm text-gray-600">
+                            Your score: {quizScores[`quiz-${i + 1}`]}%
+                          </p>
+                        )}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
+
           <div className="bg-white rounded-xl p-6 shadow-sm">
             <div className="relative">
               <img
@@ -190,7 +194,9 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
                   disabled={!isCourseCompleted}
                   className="bg-white text-gray-900 px-6 py-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
                 >
-                  {isCourseCompleted ? "View Certificate" : "Complete Course to View Certificate"}
+                  {isCourseCompleted
+                    ? "View Certificate"
+                    : "Complete Course to View Certificate"}
                 </Button>
               </div>
             </div>

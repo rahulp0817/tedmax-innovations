@@ -147,7 +147,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
           </p>
           <div className="mt-4 flex gap-2">
             <Link
-              href={`/dashboard/${generateSlug(title)}`}
+              href={`/course-purchase-preview/${generateSlug(title)}`}
               className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm"
             >
               <Play size={14} /> View Course
