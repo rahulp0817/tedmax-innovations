@@ -21,11 +21,12 @@ interface Course {
   learnerCount: number;
 }
 
-interface CoursePreviewPageProps {
+interface InternshipPreviewPageProps {
   course: Course;
 }
-
-const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
+const InternshipPreviewPage: React.FC<InternshipPreviewPageProps> = ({
+  course,
+}) => {
   const router = useRouter();
   const [moduleProgress, setModuleProgress] = useState<Record<string, boolean>>(
     {}
@@ -58,7 +59,6 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
   if (!course) {
     return <div>Course not found</div>;
   }
-
   return (
     <div className="max-w-7xl mx-auto p-6 mb-32">
       <button
@@ -68,7 +68,6 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
         <ArrowLeft size={20} />
         <span>Back to dashboard</span>
       </button>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Content Column */}
         <div className="lg:col-span-2">
@@ -84,7 +83,6 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
               </button>
             </div>
           </div>
-
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             {course.title}
           </h1>
@@ -243,4 +241,4 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
   );
 };
 
-export default CoursePreviewPage;
+export default InternshipPreviewPage;
