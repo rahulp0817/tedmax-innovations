@@ -304,13 +304,6 @@ const LandingNavbar = () => {
               className="lg:hidden"
             >
               <div className="px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg">
-                <div className="px-3 py-2">
-                  <input
-                    type="text"
-                    placeholder="Search for courses..."
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-red-500"
-                  />
-                </div>
                 {/* Mobile Categories */}
                 {categories.map((category) => (
                   <a
