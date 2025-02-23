@@ -316,13 +316,11 @@ const LandingNavbar = () => {
                   Categories
                 </div>
                 {categories.map((category) => (
-                  <a
-                    key={category}
-                    href="#"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-600 hover:bg-gray-100"
-                  >
-                    {category}
-                  </a>
+                    <Link key={category.name} href={category.link}>
+                    <a className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-red-600 hover:bg-gray-100">
+                      {category.name}
+                    </a>
+                    </Link>
                 ))}
                 {/* Mobile Auth Buttons */}
                 <div className="px-3 py-2 space-y-2">
