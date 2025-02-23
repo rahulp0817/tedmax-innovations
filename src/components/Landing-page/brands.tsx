@@ -77,13 +77,13 @@ const Brands = () => {
 
         {/* Logo Grid */}
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center justify-items-center"
+          className="grid grid-cols-4 md:grid-cols-4 gap-6 items-center justify-items-center"
           variants={itemVariants}
         >
           {logos.map((logo) => (
             <motion.div
               key={logo.id}
-              className="relative w-30 h-30 md:w-40 md:h-40"
+              className="relative w-20 h-20 md:w-40 md:h-40"
               variants={logoVariants}
               whileHover="hover"
             >

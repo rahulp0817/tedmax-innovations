@@ -250,7 +250,7 @@ const CourseSection = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-2 mb-32">
+    <div className="w-full max-w-6xl mx-auto md:px-2 px-6 mb-32">
       <motion.div
         className="mb-6"
         initial={{ opacity: 0, y: -20 }}
@@ -258,7 +258,7 @@ const CourseSection = () => {
         transition={{ duration: 0.6 }}
       >
         <motion.h2
-          className="text-3xl font-bold mt-2 text-center"
+          className="md:text-3xl text-2xl font-bold mt-2 text-center"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
@@ -276,7 +276,7 @@ const CourseSection = () => {
               <motion.button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`relative whitespace-nowrap text-base font-medium pb-4 ${
+                className={`relative whitespace-nowrap text-sm md:text-base font-medium pb-4 ${
                   activeTab === tab
                     ? "text-[var(--primary-color)]"
                     : "text-black hover:text-gray-600"
@@ -308,7 +308,7 @@ const CourseSection = () => {
           layout
         >
           <AnimatePresence mode="wait">
-            {displayedCourses.slice(0,4).map((course, index) => (
+            {displayedCourses.slice(0, 4).map((course, index) => (
               <motion.div
                 key={course.title}
                 className="w-full p-4 space-y-2 bg-white rounded-xl overflow-hidden cursor-pointer hover:shadow-lg shadow "
@@ -382,7 +382,7 @@ const CourseSection = () => {
         >
           <Link
             href="/explore-courses"
-            className="group border border-[var(--primary-color)] text-[var(--primary-color)] px-6 py-3 rounded-lg font-medium hover:bg-red-100 transition-colors inline-flex items-center"
+            className="group border border-[var(--primary-color)] text-[var(--primary-color)] px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium hover:bg-red-100 transition-colors inline-flex items-center "
           >
             Explore Courses
             <motion.span

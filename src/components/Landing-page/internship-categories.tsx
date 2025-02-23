@@ -140,7 +140,7 @@ const InternshipSection = () => {
         >
           <Link
             href="/explore-internships"
-            className="group border border-[var(--primary-color)] text-[var(--primary-color)] px-6 py-3 rounded-lg font-medium hover:bg-red-100 transition-colors inline-flex items-center"
+            className="group border border-[var(--primary-color)] text-[var(--primary-color)] px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium hover:bg-red-100 transition-colors inline-flex items-center"
           >
             Explore Internships
             <motion.span

@@ -275,10 +275,10 @@ const HeroSection = () => {
           damping: 20,
           delay: 0.6,
         }}
-        className="relative z-10 max-w-6xl mx-auto px-4"
+        className="relative z-10 max-w-6xl mx-auto px-4 mt-44 md:mt-0"
       >
         <Card className="shadow-xl">
-          <CardHeader className="font-semibold text-xl">
+          <CardHeader className="font-semibold md:text-xl">
             What do you want to learn?
           </CardHeader>
           <CardContent className="flex flex-col sm:flex-row gap-4">
@@ -290,7 +290,7 @@ const HeroSection = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onFocus={handleSearchFocus}
                 placeholder="Search for popular courses or internships"
-                className="h-12 w-full bg-gray-100 px-4 rounded-lg outline-none focus:ring-2 focus:ring-red-500 transition-all"
+                className="md:h-12 h-10 w-full bg-gray-100 px-4 rounded-lg outline-none focus:ring-2 focus:ring-red-500 transition-all"
               />
 
               <AnimatePresence>
@@ -341,7 +341,7 @@ const HeroSection = () => {
               >
                 <Button
                   onClick={handleSearchSubmit}
-                  className="bg-[#C1272D] hover:bg-[#a61f24] transition-colors h-12 w-full sm:w-auto whitespace-nowrap"
+                  className="bg-[#C1272D] hover:bg-[#a61f24] transition-colors md:h-12 h-10 w-full sm:w-auto whitespace-nowrap"
                   size="lg"
                 >
                   Search

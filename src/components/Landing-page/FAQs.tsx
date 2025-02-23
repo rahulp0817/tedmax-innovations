@@ -44,13 +44,13 @@ const FAQs = () => {
 
   return (
     <motion.div 
-      className="px-96 mb-32"
+      className="md:px-96 md:mb-32 mb-16 px-6"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       <motion.h1 
-        className="text-3xl font-semibold text-center mb-6"
+        className="md:text-3xl text-2xl font-semibold text-center mb-6 "
         variants={titleVariants}
       >
         Frequently Asked <span className="text-red-600">Questions</span>

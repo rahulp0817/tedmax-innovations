@@ -44,7 +44,7 @@ const PromoteSection = () => {
   };
 
   return (
-    <div className="relative bg-[#1B283F] py-14 flex items-center justify-between px-24">
+    <div className="relative bg-[#1B283F] py-14 flex items-center justify-between md:px-24 px-6">
       <motion.div
         className="space-y-6 max-w-lg"
         variants={containerVariants}
@@ -71,7 +71,7 @@ const PromoteSection = () => {
 
       {/* Right Section - Image */}
       <motion.div
-        className="absolute top-0 right-0"
+        className="absolute top-0 right-0 hidden md:block"
         variants={imageVariants}
         initial="hidden"
         animate="visible"
