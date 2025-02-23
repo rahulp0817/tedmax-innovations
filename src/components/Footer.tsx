@@ -74,7 +74,7 @@ const Footer = () => {
                   priority
                 />
               </div>
-              <h3 className="text-2xl text-[var(--primary-color)] font-[var(--font-glaser-stencil)]">
+              <h3 className="text-2xl text-[var(--primary-color)] font-glaser">
                 TEDMAX
               </h3>
             </div>

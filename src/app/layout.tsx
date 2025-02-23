@@ -13,9 +13,13 @@ const lato = Lato({
 });
 
 const glaserStencil = localFont({
-  src: "./fonts/Glaser-Stencil-D-Regular.ttf",
-  variable: "--font-glaser-stencil",
-  display: "swap",
+  src: [
+    {
+      path: '../../public/fonts/Glaser-Stencil-D-Regular.ttf',
+    }
+  ],
+  variable: '--font-glaser-stencil',
+  display: 'swap'
 });
 
 export const metadata: Metadata = {
@@ -30,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${lato.variable} ${glaserStencil.variable}`}>
-      <body className={`${lato.className}`}>
+      <body className={`${lato.className} ${glaserStencil.variable}`}>
         <Providers>
           <NextTopLoader color="#C1272D" showSpinner={false} />
           <Toaster />
