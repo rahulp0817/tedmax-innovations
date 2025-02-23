@@ -11,6 +11,8 @@
   --background-color: #d3d3d3;
   --space-soft-white: #f7f7f7;
   --text-highlights: #1a1a1a;
+  --font-lato: var(--font-lato);
+  --font-glaser-stencil: var(--font-glaser-stencil);
 }
 
 @media (prefers-color-scheme: light) {

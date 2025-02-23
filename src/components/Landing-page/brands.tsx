@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Brands = () => {
   const containerVariants = {
@@ -45,8 +46,15 @@ const Brands = () => {
     },
   };
 
+  const logos = [
+    { id: 1, src: "/StartupIndia.png", alt: "Azadi India" },
+    { id: 2, src: "/Azadindia.png", alt: "Azadi India" },
+    { id: 3, src: "/Indiagovt.png", alt: "Azadi India" },
+    { id: 4, src: "/MMSE.png", alt: "Azadi India" },
+  ];
+
   return (
-    <div className=" text-white py-12 px-4">
+    <div className="text-white py-12 px-4">
       <motion.div
         className="max-w-7xl mx-auto space-y-8"
         variants={containerVariants}
@@ -55,7 +63,7 @@ const Brands = () => {
       >
         {/* Title */}
         <motion.h1
-          className="text-2xl md:text-4xl lg:text-3xl font-bold text-center mb-12"
+          className="text-2xl md:text-4xl lg:text-3xl font-bold text-center mb-6"
           variants={itemVariants}
         >
           <span className="bg-black bg-clip-text text-transparent">
@@ -66,6 +74,29 @@ const Brands = () => {
             Recognized Platforms
           </span>
         </motion.h1>
+
+        {/* Logo Grid */}
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center justify-items-center"
+          variants={itemVariants}
+        >
+          {logos.map((logo) => (
+            <motion.div
+              key={logo.id}
+              className="relative w-30 h-30 md:w-40 md:h-40"
+              variants={logoVariants}
+              whileHover="hover"
+            >
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 160px, 192px"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
     </div>
   );
