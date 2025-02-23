@@ -44,7 +44,7 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
 
   const handleQuizClick = (quizId: number) => {
     // Navigate to quiz page
-    router.push(`/quiz/${quizId}`);
+    router.push(`quiz/${quizId}`);
   };
 
   // Calculate if course is completed based on module completion and quiz scores
@@ -60,7 +60,7 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 mb-32">
       <button
         onClick={() => router.back()}
         className="flex items-center gap-2 text-gray-600 mb-6 hover:text-gray-900"
@@ -93,6 +93,28 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
               Overview of course
             </h1>
             <p className="text-gray-600 mb-6">{course.description}</p>
+          </div>
+          <h1 className="text-xl font-bold text-gray-900 mb-2">
+            Claim your Certificate
+          </h1>
+          <div className="bg-white rounded-xl p-6 shadow-sm size-[500px]">
+            <div className="relative">
+              <img
+                src="/Webdev-Course-Certificate.png"
+                alt="Certificate Preview"
+                className="w-full rounded-lg blur-sm"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Button
+                  disabled={!isCourseCompleted}
+                  className="bg-white text-gray-900 px-6 py-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
+                >
+                  {isCourseCompleted
+                    ? "View Certificate"
+                    : "Complete Course to View Certificate"}
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -129,15 +151,15 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
                     </AccordionTrigger>
                     <AccordionContent>
                       <p className="flex items-center gap-2 mb-1">
-                        <CirclePlay className="w-4 h-4"/>
+                        <CirclePlay className="w-4 h-4" />
                         Content for Module {i + 1}
                       </p>
                       <p className="flex items-center gap-2 mb-1">
-                        <CirclePlay className="w-4 h-4"/>
+                        <CirclePlay className="w-4 h-4" />
                         Content for Module {i + 2}
                       </p>
                       <p className="flex items-center gap-2">
-                        <CirclePlay className="w-4 h-4"/>
+                        <CirclePlay className="w-4 h-4" />
                         Content for Module {i + 3}
                       </p>
                     </AccordionContent>
@@ -162,6 +184,7 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent>
+                      <span>Score 75% to pass the quiz</span>
                       <div className="p-4">
                         <Button
                           onClick={() => handleQuizClick(i + 1)}
@@ -181,24 +204,37 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
               </Accordion>
             </div>
           </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm">
+          <div className="bg-white rounded-xl p-6 border relative overflow-hidden">
+            {/* Image Container with Gradient Overlay */}
             <div className="relative">
               <img
-                src="/Webdev-Course-Certificate.png"
-                alt="Certificate Preview"
-                className="w-full rounded-lg blur-sm"
+                src="/Mentor-image.jpg"
+                alt="Mentor Preview"
+                className="w-full rounded-xl "
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Button
-                  disabled={!isCourseCompleted}
-                  className="bg-white text-gray-900 px-6 py-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors"
-                >
-                  {isCourseCompleted
-                    ? "View Certificate"
-                    : "Complete Course to View Certificate"}
-                </Button>
-              </div>
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40 rounded-xl"></div>
+            </div>
+
+            <div className="absolute inset-x-0 bottom-48 ml-6 px-4">
+              <span className="text-white text-2xl font-bold ">
+                Connect out Experts
+              </span>
+            </div>
+
+            {/* Content Positioned Over the Gradient */}
+            <div className="mt-2">
+              <span className="text-black font-normal">
+                If you have any doubts, contact our Experts!
+              </span>
+              <Button
+                onClick={() =>
+                  (window.location.href = "mailto:contact@tedmex.in")
+                }
+                className="bg-white mt-4 text-gray-900 w-full rounded-lg shadow-lg transition-colors font-normal hover:bg-[var(--primary-color)] hover:text-white"
+              >
+                Connect Mentor
+              </Button>
             </div>
           </div>
         </div>

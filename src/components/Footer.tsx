@@ -53,7 +53,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-black text-gray-300">
       <motion.div
         className="max-w-7xl mx-auto px-4 py-16"
         variants={containerVariants}
