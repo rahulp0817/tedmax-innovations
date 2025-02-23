@@ -1,7 +1,7 @@
 import { Play, Clock, Copy, Share, X } from "lucide-react";
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface CourseCardProps {
   title: string;
@@ -12,23 +12,23 @@ interface CourseCardProps {
 }
 
 // Certificate Modal Component
-const CertificateModal = ({ 
-  isOpen, 
-  onClose, 
-  courseTitle 
-}: { 
-  isOpen: boolean; 
-  onClose: () => void; 
+const CertificateModal = ({
+  isOpen,
+  onClose,
+  courseTitle,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
   courseTitle: string;
 }) => {
   if (!isOpen) return null;
 
   const handleDownload = () => {
-    console.log('Downloading certificate...');
+    console.log("Downloading certificate...");
   };
 
   const handleShare = () => {
-    console.log('Sharing certificate...');
+    console.log("Sharing certificate...");
   };
 
   const handleCopyLink = () => {
@@ -38,7 +38,7 @@ const CertificateModal = ({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 relative">
-        <button 
+        <button
           onClick={onClose}
           className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
         >
@@ -46,7 +46,7 @@ const CertificateModal = ({
         </button>
 
         <h2 className="text-xl font-semibold mb-4">Course Certificate</h2>
-        
+
         <div className="bg-white rounded-lg mb-6">
           <img
             src="/Webdev-Course-Certificate.png"
@@ -71,14 +71,6 @@ const CertificateModal = ({
               <Share className="w-5 h-5" />
               Share
             </button>
-
-            <button
-              onClick={handleCopyLink}
-              className="flex-1 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
-            >
-              <Copy className="w-5 h-5" />
-              Copy link
-            </button>
           </div>
         </div>
       </div>
@@ -97,7 +89,11 @@ export const CourseCard: React.FC<CourseCardProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const generateSlug = (title: string) => {
-    return title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
+    return title
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9\s]/g, "")
+      .replace(/\s+/g, "-")
+      .trim();
   };
 
   const handleCertificateClaim = () => {
@@ -151,7 +147,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
           </p>
           <div className="mt-4 flex gap-2">
             <Link
-              href={`/explore-courses/${generateSlug(title)}`}
+              href={`/dashboard/${generateSlug(title)}`}
               className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm"
             >
               <Play size={14} /> View Course

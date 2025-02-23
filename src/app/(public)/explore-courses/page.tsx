@@ -1,76 +1,93 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, House, Wallet, Clock, ChevronRight, ChevronDown, Users } from "lucide-react";
+import {
+  Search,
+  House,
+  Wallet,
+  Clock,
+  ChevronRight,
+  ChevronDown,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
 import courses from "@/app/(public)/courses/data";
 import { useSearchParams } from "next/navigation";
+
 const CourseExplorer = () => {
   const searchParams = useSearchParams();
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Read URL parameters on component mount
   useEffect(() => {
-    const categoryParam = searchParams.get('category');
+    const categoryParam = searchParams.get("category");
     if (categoryParam) {
       setSelectedCategory(categoryParam);
     }
 
-    const searchParam = searchParams.get('search');
+    const searchParam = searchParams.get("search");
     if (searchParam) {
       setSearchQuery(searchParam);
     }
   }, [searchParams]);
 
   const generateSlug = (title: string) => {
-    return title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
+    return title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
   };
 
   const getCategoryCount = (categoryId: string) => {
-    if (categoryId === 'all') {
+    if (categoryId === "all") {
       return courses.length;
     }
-    if (categoryId === 'popular') {
-      return courses.filter(course => course.category.includes('popular')).length;
+    if (categoryId === "popular") {
+      return courses.filter((course) => course.category.includes("popular"))
+        .length;
     }
-    return courses.filter(course => course.category.includes(categoryId)).length;
+    return courses.filter((course) => course.category.includes(categoryId))
+      .length;
   };
 
   const categories = [
-    { id: 'all', name: 'All Programs' },
-    { id: 'popular', name: 'Popular Programs' },
-    { id: 'cs', name: 'Computer Science & Technology' },
-    { id: 'ee', name: 'Electrical & Electronics Engineering' },
-    { id: 'me', name: 'Mechanical & Manufacturing Engineering' },
-    { id: 'business', name: 'Business & Commerce' }
+    { id: "all", name: "All Programs" },
+    { id: "popular", name: "Popular Programs" },
+    { id: "cs", name: "Computer Science & Technology" },
+    { id: "ee", name: "Electrical & Electronics Engineering" },
+    { id: "me", name: "Mechanical & Manufacturing Engineering" },
+    { id: "business", name: "Business & Commerce" },
   ];
 
   const difficulties = [
-    { id: 'all', name: 'All Levels' },
-    { id: 'basic', name: 'Basic' },
-    { id: 'advanced', name: 'Advanced' }
+    { id: "all", name: "All Levels" },
+    { id: "basic", name: "Basic" },
+    { id: "advanced", name: "Advanced" },
   ];
 
-  const displayedCourses = courses.filter(course => {
-    const matchesCategory = selectedCategory === 'all' ||
-      (Array.isArray(course.category) ?
-        course.category.includes(selectedCategory) :
-        course.category === selectedCategory);
-    const matchesDifficulty = selectedDifficulty === 'all' || course.difficulty === selectedDifficulty;
-    const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase());
+  const displayedCourses = courses.filter((course) => {
+    const matchesCategory =
+      selectedCategory === "all" ||
+      (Array.isArray(course.category)
+        ? course.category.includes(selectedCategory)
+        : course.category === selectedCategory);
+    const matchesDifficulty =
+      selectedDifficulty === "all" || course.difficulty === selectedDifficulty;
+    const matchesSearch = course.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     return matchesCategory && matchesDifficulty && matchesSearch;
   });
+
+
 
   // Update URL when category changes
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
     const url = new URL(window.location.href);
-    url.searchParams.set('category', categoryId);
-    window.history.pushState({}, '', url);
+    url.searchParams.set("category", categoryId);
+    window.history.pushState({}, "", url);
   };
 
   return (
@@ -88,7 +105,9 @@ const CourseExplorer = () => {
       </nav>
 
       <div className="flex justify-between items-center mb-8 sticky top-0 bg-white z-10 py-4">
-        <h1 className="text-4xl font-bold text-red-600">Discover Our Courses</h1>
+        <h1 className="text-4xl font-bold text-red-600">
+          Discover Our Courses
+        </h1>
         <div className="flex gap-4 items-center">
           <div className="relative">
             <input
@@ -108,22 +127,31 @@ const CourseExplorer = () => {
               className="flex items-center gap-2 px-4 py-2 border rounded-lg bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <span>
-                {difficulties.find(d => d.id === selectedDifficulty)?.name || 'Select Level'}
+                {difficulties.find((d) => d.id === selectedDifficulty)?.name ||
+                  "Select Level"}
               </span>
-              <ChevronDown size={16} className={`transform transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown
+                size={16}
+                className={`transform transition-transform ${
+                  isDropdownOpen ? "rotate-180" : ""
+                }`}
+              />
             </button>
 
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-20">
-                {difficulties.map(difficulty => (
+                {difficulties.map((difficulty) => (
                   <button
                     key={difficulty.id}
                     onClick={() => {
                       setSelectedDifficulty(difficulty.id);
                       setIsDropdownOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2 hover:bg-gray-50 ${selectedDifficulty === difficulty.id ? 'bg-red-50 text-red-600' : ''
-                      }`}
+                    className={`w-full text-left px-4 py-2 hover:bg-gray-50 ${
+                      selectedDifficulty === difficulty.id
+                        ? "bg-red-50 text-red-600"
+                        : ""
+                    }`}
                   >
                     {difficulty.name}
                   </button>
@@ -139,19 +167,22 @@ const CourseExplorer = () => {
           <div className="bg-white rounded-lg shadow-lg p-4 sticky top-24">
             <h3 className="text-lg font-semibold mb-3">Categories</h3>
             <div className="space-y-2">
-              {categories.map(category => (
+              {categories.map((category) => (
                 <motion.button
                   key={category.id}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleCategoryChange(category.id)}
-                  className={`w-full text-left px-3 py-2 rounded-md flex justify-between items-center ${selectedCategory === category.id
-                      ? 'bg-red-100 text-red-600'
-                      : 'hover:bg-gray-50'
-                    }`}
+                  className={`w-full text-left px-3 py-2 rounded-md flex justify-between items-center ${
+                    selectedCategory === category.id
+                      ? "bg-red-100 text-red-600"
+                      : "hover:bg-gray-50"
+                  }`}
                 >
                   <span>{category.name}</span>
-                  <span className="text-sm text-gray-500">({getCategoryCount(category.id)})</span>
+                  <span className="text-sm text-gray-500">
+                    ({getCategoryCount(category.id)})
+                  </span>
                 </motion.button>
               ))}
             </div>
@@ -189,7 +220,7 @@ const CourseExplorer = () => {
                   layout
                 >
                   <Link
-                    href={`/courses/${generateSlug(course.title)}`}
+                    href={`/explore-courses/${generateSlug(course.title)}`}
                     className="block h-full"
                   >
                     <motion.div className="p-4 rounded-xl">
@@ -200,7 +231,8 @@ const CourseExplorer = () => {
                             alt={course.title}
                             className="w-full h-full object-contain rounded-xl"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = '/placeholder-course.png';
+                              (e.target as HTMLImageElement).src =
+                                "/placeholder-course.png";
                             }}
                           />
                         </div>
