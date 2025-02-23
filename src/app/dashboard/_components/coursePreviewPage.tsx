@@ -204,7 +204,7 @@ const CoursePreviewPage: React.FC<CoursePreviewPageProps> = ({ course }) => {
               </Accordion>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-6 border relative overflow-hidden">
+          <div className="bg-white rounded-xl p-6 shadow relative overflow-hidden">
             {/* Image Container with Gradient Overlay */}
             <div className="relative">
               <img
