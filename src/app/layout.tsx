@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en" className={`${lato.variable} ${glaserStencil.variable}`}>
       <body className={`${lato.className}`}>
         <Providers>
-          <NextTopLoader color="#C1272D" />
+          <NextTopLoader color="#C1272D" showSpinner={false} />
           <Toaster />
           {children}
         </Providers>
