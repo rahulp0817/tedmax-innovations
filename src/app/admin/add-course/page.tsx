@@ -279,6 +279,44 @@ const CourseFormPage = () => {
             )}
           />
         </div>
+        <div className="space-y-4">
+          <FormField
+            control={form.control}
+            name="prerequisites"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Add Video URL</FormLabel>
+                <FormControl>
+                  <Textarea 
+                    className="h-24 resize-none"
+                    placeholder="Enter prerequisites"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="space-y-4">
+          <FormField
+            control={form.control}
+            name="prerequisites"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Add Courses Modules URL</FormLabel>
+                <FormControl>
+                  <Textarea 
+                    className="h-24 resize-none"
+                    placeholder="Add Courses Modules URL"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
       </div>
     </motion.div>
   );
