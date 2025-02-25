@@ -339,6 +339,42 @@ const FormPage = () => {
             )}
           />
         </div>
+        <div className="space-y-4">
+          <FormField
+            control={form.control}
+            name="skills"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Add Video URL</FormLabel>
+                <FormControl>
+                  <Textarea 
+                    className="h-24 resize-none min-w-full"
+                    placeholder="Add Video URL"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="projectWork"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Add Modules URL</FormLabel>
+                <FormControl>
+                  <Textarea 
+                    className="h-24 resize-none"
+                    placeholder="Add Modules URL"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
       </div>
     </motion.div>
   );
